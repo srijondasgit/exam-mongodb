@@ -11,40 +11,70 @@ import java.util.List;
 public class Dbseeder implements CommandLineRunner{
 
 
-    private HotelRepository hotelRepository;
+    //private HotelRepository hotelRepository;
 
-    public Dbseeder(HotelRepository hotelRepository) {
-        this.hotelRepository = hotelRepository;
+    private TestRepository testRepository;
+
+    public Dbseeder(TestRepository testRepository) {
+        this.testRepository = testRepository;
     }
+
+    /*public Dbseeder(HotelRepository hotelRepository) {
+        this.hotelRepository = hotelRepository;
+    }*/
+
 
 
     @Override
     public void run(String... args) throws Exception {
 
-        Hotel mariott = new Hotel(
-                "Marr",
-                1,
-                new Address("Paris", "India"),
+        Test test1 = new Test(
+                "test1",
+                "Nes",
+                "6",
                 Arrays.asList(
-                        new Review("John", 8, false),
-                        new Review("Sri", 10, true)
+                        new String("Q1 : this question"),
+                        new String ("Q2 : that question")
+                ),
+                Arrays.asList(
+                        new Submission("Sam","sam@gmail.com", "123",
+                                Arrays.asList(
+                                        new String("A1 : this answer"),
+                                        new String ("A2 : that answer")
+                                ))
                 )
+
         );
 
-        Hotel standard = new Hotel(
-                "Stan",
-                1,
-                new Address("Paris", "India"),
-                Arrays.asList(
-                        new Review("John", 8, false),
-                        new Review("Sri", 10, true)
-                )
-        );
+        this.testRepository.deleteAll();
 
-        //drop all hotels
-        this.hotelRepository.deleteAll();
+        List<Test> tests = Arrays.asList(test1);
+        this.testRepository.saveAll(tests);
 
-        List<Hotel> hotels = Arrays.asList(mariott, standard);
-        this.hotelRepository.saveAll(hotels);
+//        Hotel mariott = new Hotel(
+//                "Marr",
+//                1,
+//                new Address("Paris", "India"),
+//                Arrays.asList(
+//                        new Review("John", 8, false),
+//                        new Review("Sri", 10, true)
+//                )
+//        );
+//
+//        Hotel standard = new Hotel(
+//                "Stan",
+//                1,
+//                new Address("Paris", "India"),
+//                Arrays.asList(
+//                        new Review("John", 8, false),
+//                        new Review("Sri", 10, true)
+//                )
+//        );
+
+//        //drop all hotels
+//        this.hotelRepository.deleteAll();
+//
+//        List<Hotel> hotels = Arrays.asList(mariott, standard);
+//        this.hotelRepository.saveAll(hotels);
     }
 }
