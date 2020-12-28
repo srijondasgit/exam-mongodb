@@ -1,8 +1,9 @@
 package org.gitanjali.exam;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,20 @@ public class Test {
     private String className;
     private List<String> questions;
     private List<Submission> submissions;
+    @CreatedBy
+    private String createdBy;
+    @CreatedDate
+    private LocalDateTime createdDate;
+    @LastModifiedBy
+    private String lastModifiedBy;
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
 
     protected Test(){
         this.questions = new ArrayList<>();
         this.submissions = new ArrayList<>();
     }
+
 
 
     public Test(String testName, String schoolName, String className, List<String> questions, List<Submission> submissions) {
@@ -30,6 +40,7 @@ public class Test {
         this.questions = questions;
         this.submissions = submissions;
     }
+
 
     public String getId() {
         return id;

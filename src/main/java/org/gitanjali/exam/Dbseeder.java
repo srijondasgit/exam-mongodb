@@ -4,6 +4,7 @@ package org.gitanjali.exam;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +42,9 @@ public class Dbseeder implements CommandLineRunner{
                                 Arrays.asList(
                                         new String("A1 : this answer"),
                                         new String ("A2 : that answer")
-                                ))
+                                )
+
+                        )
                 )
 
         );
