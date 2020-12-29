@@ -1,0 +1,13 @@
+services:
+  mymongodb:
+    image: mongo:latest
+    container_name: "mymongodb"
+    ports:
+      - 27017:27017
+  springboot-mongodb:
+    image: springboot-mongodb:latest
+    container_name: springboot-mongodb
+    ports:
+      - 8080:8080
+    links:
+      - mymongodb
