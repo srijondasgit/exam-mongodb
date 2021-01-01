@@ -1,23 +1,24 @@
 pipeline {
-
     agent any
-
+    tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+    }
     stages {
-
-        stage("build") {
-
+        stage ('Initialize') {
             steps {
-
-                echo 'build application'
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
             }
         }
 
-        stage("deploy") {
-
+        stage ('Build') {
             steps {
-
-                echo 'deploying application'
+                sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
+
         }
     }
 }
