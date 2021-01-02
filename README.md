@@ -11,3 +11,6 @@ docker-compose up
 
 Build job - 
 http://138.68.37.125:8080/
+
+Docker image - 
+https://hub.docker.com/r/srijondas/springboot-mongodb
