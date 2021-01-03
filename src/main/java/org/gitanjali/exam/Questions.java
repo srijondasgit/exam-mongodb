@@ -1,15 +1,28 @@
 package org.gitanjali.exam;
 
+import java.util.ArrayList;
+
 public class Questions {
 
     private String questions;
+    private int score;
 
 
-    public Questions(String questions) {
-        this.questions=questions;
+    protected Questions(){
+    }
+
+    public Questions(String questions, int score) {
+        this.questions = questions;
+        this.score = score;
     }
 
     public String getQuestions() {
         return questions;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+
 }

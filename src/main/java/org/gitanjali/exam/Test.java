@@ -16,7 +16,6 @@ public class Test {
     private String schoolName;
     private String className;
 
-    //private List<String> questions;
     private List<Questions> questions;
     private List<Submission> submissions;
     @CreatedBy
