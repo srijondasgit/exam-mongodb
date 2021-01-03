@@ -15,7 +15,9 @@ public class Test {
     private String testName;
     private String schoolName;
     private String className;
-    private List<String> questions;
+
+    //private List<String> questions;
+    private List<Questions> questions;
     private List<Submission> submissions;
     @CreatedBy
     private String createdBy;
@@ -33,7 +35,7 @@ public class Test {
 
 
 
-    public Test(String testName, String schoolName, String className, List<String> questions, List<Submission> submissions) {
+    public Test(String testName, String schoolName, String className, List<Questions> questions, List<Submission> submissions) {
         this.testName = testName;
         this.schoolName = schoolName;
         this.className = className;
@@ -58,12 +60,24 @@ public class Test {
         return className;
     }
 
-    public List<String> getQuestions() {
+    public List<Questions> getQuestions() {
         return questions;
     }
 
     public List<Submission> getSubmissions() {
         return submissions;
+    }
+
+    public void addQuestions(Questions questions) {
+        this.questions.add(questions);
+    }
+
+    public int getQLength(){
+        return this.questions.size();
+    }
+
+    public void removeQuestion(int qNumber){
+        this.questions.remove(qNumber-1);
     }
 
 }

@@ -45,4 +45,25 @@ public class TestController {
         return test;
     }
 
+    @PostMapping("/addQuestion/{id}")
+    public void setById(@PathVariable("id") String id, @RequestBody Questions questions){
+        Test test = this.testRepository.findByIdEquals(id);
+
+        test.addQuestions(questions);
+
+        this.testRepository.save(test);
+    }
+
+    @PostMapping("/removeQuestion/{id}")
+    public void removeById(@PathVariable("id") String id, @RequestBody int qNumber){
+        Test test = this.testRepository.findByIdEquals(id);
+
+        int length = test.getQLength();
+        if( qNumber <= length ){
+            test.removeQuestion(qNumber);
+        }
+
+        this.testRepository.save(test);
+    }
+
 }
