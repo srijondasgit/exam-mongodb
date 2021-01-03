@@ -38,4 +38,11 @@ public class TestController {
         javers.commit("test", test);
     }
 
+    @GetMapping("/{id}")
+    public Test getById(@PathVariable("id") String id){
+        Test test = this.testRepository.findByIdEquals(id);
+
+        return test;
+    }
+
 }
