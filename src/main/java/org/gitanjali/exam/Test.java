@@ -75,8 +75,12 @@ public class Test {
         return this.questions.size();
     }
 
-    public void removeQuestion(int qNumber){
-        this.questions.remove(qNumber-1);
+    public void removeQuestion(int index){
+        this.questions.remove(index);
+    }
+
+    public int getSLength(){
+        return this.submissions.size();
     }
 
 }

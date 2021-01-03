@@ -54,16 +54,42 @@ public class TestController {
         this.testRepository.save(test);
     }
 
-    @PostMapping("/removeQuestion/{id}")
-    public void removeById(@PathVariable("id") String id, @RequestBody int qNumber){
+    @DeleteMapping("/removeQuestion/{id}")
+    public void removeById(@PathVariable("id") String id, @RequestBody int index){
         Test test = this.testRepository.findByIdEquals(id);
 
         int length = test.getQLength();
-        if( qNumber <= length ){
-            test.removeQuestion(qNumber);
+        if( index < length ){
+            test.removeQuestion(index);
         }
 
         this.testRepository.save(test);
     }
 
+    @GetMapping("/getSubmission/{id}/{index}")
+    public Submission getSubmissionByIndex(@PathVariable("id") String id, @PathVariable("index") int index){
+        Test test = this.testRepository.findByIdEquals(id);
+        Submission submission = new Submission();
+
+        int length = test.getSLength();
+        if( index < length ){
+            submission = test.getSubmissions().get(index);
+        }
+
+        return submission;
+    }
+
+    @GetMapping("/getSubmissionByEmail/{id}/{email}")
+    public Submission getSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email){
+        Test test = this.testRepository.findByIdEquals(id);
+        List<Submission> submissions = test.getSubmissions();
+
+        for (Submission s: submissions
+             ) {if(s.getStudentEmail().trim().equals(email.trim())){
+                  return s;
+                }
+        }
+
+        return new Submission();
+    }
 }
