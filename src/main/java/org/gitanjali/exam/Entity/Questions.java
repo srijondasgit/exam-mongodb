@@ -4,16 +4,21 @@ import java.util.ArrayList;
 
 public class Questions {
 
+    private int index;
     private String questions;
     private int score;
-
 
     protected Questions(){
     }
 
-    public Questions(String questions, int score) {
+    public Questions(int index, String questions, int score) {
+        this.index = index;
         this.questions = questions;
         this.score = score;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public String getQuestions() {
@@ -24,5 +29,11 @@ public class Questions {
         return score;
     }
 
+    public void setQuestions(String questions) {
+        this.questions = questions;
+    }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

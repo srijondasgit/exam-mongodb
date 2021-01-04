@@ -1,5 +1,6 @@
 package org.gitanjali.exam.Controller;
 
+import org.gitanjali.exam.Entity.Answers;
 import org.gitanjali.exam.Entity.Questions;
 import org.gitanjali.exam.Entity.Submission;
 import org.gitanjali.exam.Entity.Test;
@@ -52,8 +53,19 @@ public class TestController {
     @PostMapping("/addQuestion/{id}")
     public void setById(@PathVariable("id") String id, @RequestBody Questions questions){
         Test test = this.testRepository.findByIdEquals(id);
+        List<Questions> questionsList = test.getQuestions();
+        boolean found = false;
 
-        test.addQuestions(questions);
+        for (Questions q: questionsList) {
+            if(q.getIndex()==questions.getIndex()){
+                q.setQuestions(questions.getQuestions());
+                q.setScore(questions.getScore());
+                found = true;
+            }
+        }
+
+        if(found == false)
+            questionsList.add(questions);
 
         this.testRepository.save(test);
     }
@@ -70,7 +82,7 @@ public class TestController {
         this.testRepository.save(test);
     }
 
-    @GetMapping("/getSubmission/{id}/{index}")
+    @GetMapping("/getSubmissionByIndex/{id}/{index}")
     public Submission getSubmissionByIndex(@PathVariable("id") String id, @PathVariable("index") int index){
         Test test = this.testRepository.findByIdEquals(id);
         Submission submission = new Submission();
@@ -83,7 +95,7 @@ public class TestController {
         return submission;
     }
 
-    @GetMapping("/getSubmissionByEmail/{id}/{email}")
+    @GetMapping("/getSubmission/{id}/{email}")
     public Submission getSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email){
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();
@@ -97,7 +109,7 @@ public class TestController {
         return new Submission();
     }
 
-    @PostMapping("/updateSubUDetByEmail/{id}/{email}")
+    @PostMapping("/updateSubmission/{id}/{email}")
     public void updateSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Submission submission){
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();
@@ -113,15 +125,25 @@ public class TestController {
 
     }
 
-    @PostMapping("/addAnswersByEmail/{id}/{email}")
-    public void addAnswersByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Submission submission){
+    @PostMapping("/addAnswers/{id}/{email}")
+    public void addAnswersByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Answers answer){
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();
 
         for (Submission s: submissions) {
             if(s.getStudentEmail().trim().equals(email.trim())){
-                s.setStudentName(submission.getStudentName());
-                s.setRollNo(submission.getRollNo());
+                List<Answers> answers = s.getAnswers();
+                boolean found = false;
+                for ( Answers a: answers) {
+                    if(a.getIndex()==answer.getIndex()){
+                        a.setAnswer(answer.getAnswer());
+                        found = true;
+                    }
+                }
+
+                if(!found)
+                    answers.add(answer);
+
             }
         }
 
