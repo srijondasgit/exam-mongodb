@@ -1,4 +1,4 @@
-package org.gitanjali.exam;
+package org.gitanjali.exam.Entity;
 
 import java.util.ArrayList;
 

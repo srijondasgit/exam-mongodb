@@ -1,4 +1,4 @@
-package org.gitanjali.exam;
+package org.gitanjali.exam.Entity;
 
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -32,8 +32,6 @@ public class Test {
         this.submissions = new ArrayList<>();
     }
 
-
-
     public Test(String testName, String schoolName, String className, List<Questions> questions, List<Submission> submissions) {
         this.testName = testName;
         this.schoolName = schoolName;
@@ -41,7 +39,6 @@ public class Test {
         this.questions = questions;
         this.submissions = submissions;
     }
-
 
     public String getId() {
         return id;

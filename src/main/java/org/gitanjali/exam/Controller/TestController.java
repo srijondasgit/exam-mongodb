@@ -1,5 +1,9 @@
-package org.gitanjali.exam;
+package org.gitanjali.exam.Controller;
 
+import org.gitanjali.exam.Entity.Questions;
+import org.gitanjali.exam.Entity.Submission;
+import org.gitanjali.exam.Entity.Test;
+import org.gitanjali.exam.Repository.TestRepository;
 import org.javers.core.Javers;
 import org.springframework.web.bind.annotation.*;
 
@@ -92,4 +96,39 @@ public class TestController {
 
         return new Submission();
     }
+
+    @PostMapping("/updateSubUDetByEmail/{id}/{email}")
+    public void updateSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Submission submission){
+        Test test = this.testRepository.findByIdEquals(id);
+        List<Submission> submissions = test.getSubmissions();
+
+        for (Submission s: submissions) {
+            if(s.getStudentEmail().trim().equals(email.trim())){
+                s.setStudentName(submission.getStudentName());
+                s.setRollNo(submission.getRollNo());
+            }
+        }
+
+        this.testRepository.save(test);
+
+    }
+
+    @PostMapping("/addAnswersByEmail/{id}/{email}")
+    public void addAnswersByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Submission submission){
+        Test test = this.testRepository.findByIdEquals(id);
+        List<Submission> submissions = test.getSubmissions();
+
+        for (Submission s: submissions) {
+            if(s.getStudentEmail().trim().equals(email.trim())){
+                s.setStudentName(submission.getStudentName());
+                s.setRollNo(submission.getRollNo());
+            }
+        }
+
+        this.testRepository.save(test);
+
+    }
+
+
+
 }

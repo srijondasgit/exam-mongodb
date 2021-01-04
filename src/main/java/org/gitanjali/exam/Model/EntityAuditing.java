@@ -1,4 +1,4 @@
-package org.gitanjali.exam.model;
+package org.gitanjali.exam.Model;
 
 import java.util.Optional;
 

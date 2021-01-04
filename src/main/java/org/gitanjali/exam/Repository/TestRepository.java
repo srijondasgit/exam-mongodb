@@ -1,6 +1,6 @@
-package org.gitanjali.exam;
+package org.gitanjali.exam.Repository;
 
-import java.util.List;
+import org.gitanjali.exam.Entity.Test;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface TestRepository extends MongoRepository<Test,String> {

@@ -1,4 +1,4 @@
-package org.gitanjali.exam;
+package org.gitanjali.exam.Entity;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,9 +9,9 @@ public class Submission {
     private String studentName;
     private String studentEmail;
     private String rollNo;
-    private List<String> answers;
+    private List<Answers> answers;
 
-    public Submission(String studentName, String studentEmail, String rollNo, List<String> answers) {
+    public Submission(String studentName, String studentEmail, String rollNo, List<Answers> answers) {
         this.studentName = studentName;
         this.studentEmail = studentEmail;
         this.rollNo = rollNo;
@@ -35,8 +35,19 @@ public class Submission {
         return rollNo;
     }
 
-    public List<String> getAnswers() {
+    public List<Answers> getAnswers() {
         return answers;
     }
 
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
+    }
+
+    public void setRollNo(String rollNo) {
+        this.rollNo = rollNo;
+    }
 }
