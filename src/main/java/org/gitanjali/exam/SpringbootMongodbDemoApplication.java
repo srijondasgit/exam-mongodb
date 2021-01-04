@@ -1,6 +1,6 @@
 package org.gitanjali.exam;
 
-import org.gitanjali.exam.model.EntityAuditing;
+import org.gitanjali.exam.Model.EntityAuditing;
 import org.javers.spring.annotation.JaversSpringDataAuditable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
-import org.gitanjali.*;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"org.gitanjali.*"})

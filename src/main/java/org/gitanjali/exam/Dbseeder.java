@@ -1,9 +1,13 @@
 package org.gitanjali.exam;
 
+import org.gitanjali.exam.Entity.Answers;
+import org.gitanjali.exam.Entity.Questions;
+import org.gitanjali.exam.Entity.Submission;
+import org.gitanjali.exam.Entity.Test;
+import org.gitanjali.exam.Repository.TestRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,8 +34,8 @@ public class Dbseeder implements CommandLineRunner{
                 Arrays.asList(
                         new Submission("Sam","sam@gmail.com", "123",
                                 Arrays.asList(
-                                        new String("A1 : this answer"),
-                                        new String ("A2 : that answer")
+                                        new Answers("A1 : this answer",5),
+                                        new Answers ("A2 : that answer", 10)
                                 )
 
                         )
