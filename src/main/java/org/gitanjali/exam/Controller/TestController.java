@@ -33,8 +33,7 @@ public class TestController {
     @PutMapping
     public void insert(@RequestBody Test test){
         this.testRepository.insert(test);
-        javers.commit("test", test);
-
+        javers.commit("tests", test);
     }
 
     @PostMapping
@@ -75,7 +74,7 @@ public class TestController {
         Test test = this.testRepository.findByIdEquals(id);
 
         int length = test.getQLength();
-        if( index < length ){
+        if ( index < length ){
             test.removeQuestion(index);
         }
 
@@ -88,7 +87,7 @@ public class TestController {
         Submission submission = new Submission();
 
         int length = test.getSLength();
-        if( index < length ){
+        if ( index < length ){
             submission = test.getSubmissions().get(index);
         }
 
@@ -113,16 +112,22 @@ public class TestController {
     public void updateSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Submission submission){
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();
+        boolean found = false;
 
         for (Submission s: submissions) {
             if(s.getStudentEmail().trim().equals(email.trim())){
                 s.setStudentName(submission.getStudentName());
                 s.setRollNo(submission.getRollNo());
+                found = true;
             }
         }
 
-        this.testRepository.save(test);
+        if(!found){
+            submission.setStudentEmail(email.trim());
+            submissions.add(submission);
+        }
 
+        this.testRepository.save(test);
     }
 
     @PostMapping("/addAnswers/{id}/{email}")
@@ -136,13 +141,15 @@ public class TestController {
                 boolean found = false;
                 for ( Answers a: answers) {
                     if(a.getIndex()==answer.getIndex()){
-                        a.setAnswer(answer.getAnswer());
+                        a.setAnswerText(answer.getAnswerText());
+                        a.setPointScored(answer.getPointScored());
                         found = true;
                     }
                 }
 
-                if(!found)
+                if(!found){
                     answers.add(answer);
+                }
 
             }
         }

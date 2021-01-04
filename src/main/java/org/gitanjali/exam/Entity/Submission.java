@@ -1,5 +1,6 @@
 package org.gitanjali.exam.Entity;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
@@ -8,6 +9,7 @@ public class Submission {
 
     private String studentName;
     private String studentEmail;
+    //@Indexed(unique = true)
     private String rollNo;
     private List<Answers> answers;
 

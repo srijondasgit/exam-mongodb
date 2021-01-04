@@ -3,15 +3,15 @@ package org.gitanjali.exam.Entity;
 
 public class Answers {
     private int index;
-    private String answer;
+    private String answerText;
     private int pointScored;
 
     public Answers() {
     }
 
-    public Answers(int index, String answer, int pointScored) {
+    public Answers(int index, String answerText, int pointScored) {
         this.index = index;
-        this.answer = answer;
+        this.answerText = answerText;
         this.pointScored = pointScored;
     }
 
@@ -19,8 +19,8 @@ public class Answers {
         return index;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getAnswerText() {
+        return answerText;
     }
 
     public int getPointScored() {
@@ -31,8 +31,8 @@ public class Answers {
         this.index = index;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswerText(String answerText) {
+        this.answerText = answerText;
     }
 
     public void setPointScored(int pointScored) {
