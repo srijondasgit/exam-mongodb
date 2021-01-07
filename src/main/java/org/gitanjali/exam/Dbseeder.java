@@ -1,10 +1,8 @@
 package org.gitanjali.exam;
 
-import org.gitanjali.exam.Entity.Answers;
-import org.gitanjali.exam.Entity.Questions;
-import org.gitanjali.exam.Entity.Submission;
-import org.gitanjali.exam.Entity.Test;
+import org.gitanjali.exam.Entity.*;
 import org.gitanjali.exam.Repository.TestRepository;
+import org.gitanjali.exam.Repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +13,17 @@ import java.util.List;
 public class Dbseeder implements CommandLineRunner{
 
     private TestRepository testRepository;
+    private UserRepository userRepository;
 
-    public Dbseeder(TestRepository testRepository) {
+    public Dbseeder(TestRepository testRepository, UserRepository userRepository) {
         this.testRepository = testRepository;
+        this.userRepository = userRepository;
     }
+
+    //public Dbseeder(UserRepository userRepository) {
+//        this.userRepository = userRepository;
+//    }
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -47,6 +52,12 @@ public class Dbseeder implements CommandLineRunner{
 
         List<Test> tests = Arrays.asList(test1);
         this.testRepository.saveAll(tests);
+
+        this.userRepository.deleteAll();
+        User user = new User ("user1", "pwd", "test@test.com");
+
+        List<User> users = Arrays.asList(user);
+        this.userRepository.saveAll(users);
 
 
     }

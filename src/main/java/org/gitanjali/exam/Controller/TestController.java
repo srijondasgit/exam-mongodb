@@ -1,11 +1,12 @@
 package org.gitanjali.exam.Controller;
 
-import org.gitanjali.exam.Entity.Answers;
-import org.gitanjali.exam.Entity.Questions;
-import org.gitanjali.exam.Entity.Submission;
-import org.gitanjali.exam.Entity.Test;
+import org.gitanjali.exam.Entity.*;
 import org.gitanjali.exam.Repository.TestRepository;
+import org.gitanjali.exam.Util.JwtUtil;
 import org.javers.core.Javers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class TestController {
 
         return tests;
     }
+
 
     @PutMapping
     public void insert(@RequestBody Test test){
@@ -130,7 +132,7 @@ public class TestController {
         this.testRepository.save(test);
     }
 
-    @PostMapping("/addAnswers/{id}/{email}")
+    @PostMapping("/upsertAnswers/{id}/{email}")
     public void addAnswersByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Answers answer){
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();
