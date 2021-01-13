@@ -1,18 +1,21 @@
 package org.gitanjali.exam.Controller;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
+
 import org.gitanjali.exam.Entity.Answers;
 import org.gitanjali.exam.Entity.Submission;
 import org.gitanjali.exam.Entity.Test;
 import org.gitanjali.exam.Repository.TestRepository;
 import org.javers.core.Javers;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
-
-@RestController("/student")
-//@RequestMapping("/student")
+@RestController
+@RequestMapping("/student")
 public class StudentController {
 
     private final Javers javers;

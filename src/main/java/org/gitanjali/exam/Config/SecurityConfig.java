@@ -90,10 +90,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticate").permitAll()
                 //.antMatchers("/tests/addQuestion/**").access("hasRole('ROLE_TEACHER')") //  hasRole("TEACHER")
                 //.antMatchers("/profile").authenticated()
-                .antMatchers("/tests/**").hasRole("TEACHER")
-                .antMatchers("/student/**").hasRole("STUDENT")
+                .antMatchers("/tests/**").hasAnyAuthority("TEACHER")
+                .antMatchers("/student/**").hasAnyAuthority("STUDENT")
                 .anyRequest().authenticated()
-                .and().exceptionHandling().accessDeniedPage("/error/403").and().sessionManagement()
+                .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 //        http.authorizeRequests()
@@ -108,10 +108,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);;
     }
 
-    @Override
-    public void configure(WebSecurity web){
-        web.ignoring().antMatchers("/tests/all","/authenticate");
-    }
+	/*
+	 * @Override public void configure(WebSecurity web){
+	 * web.ignoring().antMatchers("/tests/all","/authenticate"); }
+	 */
 
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception{
