@@ -10,7 +10,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"org.gitanjali.*"})
+//@ComponentScan(basePackages = {"org.gitanjali.*"})
 @EnableMongoAuditing
 @JaversSpringDataAuditable
 public class SpringbootMongodbDemoApplication {

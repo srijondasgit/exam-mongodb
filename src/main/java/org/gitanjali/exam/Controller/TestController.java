@@ -7,13 +7,20 @@ import org.javers.core.Javers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
-@RestController
-@RequestMapping("/tests")
+@RestController("/tests")
+//@RequestMapping("/tests")
 public class TestController {
 
     private final Javers javers;
@@ -53,6 +60,7 @@ public class TestController {
 
     @PostMapping("/addQuestion/{id}")
     public void setById(@PathVariable("id") String id, @RequestBody Questions questions){
+
         Test test = this.testRepository.findByIdEquals(id);
         List<Questions> questionsList = test.getQuestions();
         boolean found = false;
@@ -98,6 +106,7 @@ public class TestController {
 
     @GetMapping("/getSubmission/{id}/{email}")
     public Submission getSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email){
+
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();
 
@@ -112,6 +121,7 @@ public class TestController {
 
     @PostMapping("/updateSubmission/{id}/{email}")
     public void updateSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Submission submission){
+
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();
         boolean found = false;
@@ -130,34 +140,6 @@ public class TestController {
         }
 
         this.testRepository.save(test);
-    }
-
-    @PostMapping("/upsertAnswers/{id}/{email}")
-    public void addAnswersByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Answers answer){
-        Test test = this.testRepository.findByIdEquals(id);
-        List<Submission> submissions = test.getSubmissions();
-
-        for (Submission s: submissions) {
-            if(s.getStudentEmail().trim().equals(email.trim())){
-                List<Answers> answers = s.getAnswers();
-                boolean found = false;
-                for ( Answers a: answers) {
-                    if(a.getIndex()==answer.getIndex()){
-                        a.setAnswerText(answer.getAnswerText());
-                        a.setPointScored(answer.getPointScored());
-                        found = true;
-                    }
-                }
-
-                if(!found){
-                    answers.add(answer);
-                }
-
-            }
-        }
-
-        this.testRepository.save(test);
-
     }
 
 

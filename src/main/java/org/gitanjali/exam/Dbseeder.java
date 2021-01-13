@@ -54,9 +54,11 @@ public class Dbseeder implements CommandLineRunner{
         this.testRepository.saveAll(tests);
 
         this.userRepository.deleteAll();
-        User user = new User ("user1", "pwd", "test@test.com");
+        User user = new User ("user1", "pwd", "test@test.com", "TEACHER");
+        User user1 = new User ("user2", "pwd", "test1@test.com", "STUDENT");
 
-        List<User> users = Arrays.asList(user);
+
+        List<User> users = Arrays.asList(user, user1);
         this.userRepository.saveAll(users);
 
 
