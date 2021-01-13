@@ -6,7 +6,6 @@ import org.gitanjali.exam.Entity.Questions;
 import org.gitanjali.exam.Entity.Submission;
 import org.gitanjali.exam.Entity.Test;
 import org.gitanjali.exam.Repository.TestRepository;
-import org.javers.core.Javers;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tests")
 public class TestController {
 
-    private final Javers javers;
     private TestRepository testRepository;
 
-    public TestController(Javers javers, TestRepository testRepository) {
-        this.javers = javers;
+    public TestController(TestRepository testRepository) {
         this.testRepository = testRepository;
     }
 
@@ -40,13 +37,11 @@ public class TestController {
     @PutMapping
     public void insert(@RequestBody Test test){
         this.testRepository.insert(test);
-        javers.commit("tests", test);
     }
 
     @PostMapping
     public void update(@RequestBody Test test){
         this.testRepository.save(test);
-        javers.commit("test", test);
     }
 
     @GetMapping("/{id}")
