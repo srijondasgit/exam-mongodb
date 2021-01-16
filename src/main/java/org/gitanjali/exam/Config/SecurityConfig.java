@@ -55,74 +55,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//        http.authorizeRequests()
-//                .antMatchers("/tests/addQuestion/**").hasRole("TEACHER")
-//                .antMatchers("/tests/upsertAnswers/**").hasRole("STUDENT");
-
-
-
-//            http.csrf().disable().authorizeRequests()
-//                    .antMatchers("tests/addQuestion/**").hasRole("TEACHER")
-//                    //.antMatchers("/tests/upsertAnswers/**").hasRole("STUDENT")
-//                    //.antMatchers("/hellouser").hasAnyRole("USER","ADMIN")
-//                    .antMatchers("/authenticate").permitAll()
-//                    .anyRequest().authenticated()
-//                    .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
-//                    and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-//        http
-//                // remove csrf and state in session because in jwt we do not need them
-//                .csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                // add jwt filters (1. authentication, 2. authorization)
-//                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
-//                .addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
-//                .authorizeRequests()
-//                // configure access rules
-//                .antMatchers(HttpMethod.POST, "/login").permitAll()
-//                .antMatchers("/api/public/management/*").hasRole("MANAGER")
-//                .antMatchers("/api/public/admin/*").hasRole("ADMIN")
-//                .anyRequest().authenticated();
-
-
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                //.antMatchers("/tests/addQuestion/**").access("hasRole('ROLE_TEACHER')") //  hasRole("TEACHER")
-                //.antMatchers("/profile").authenticated()
+                .antMatchers("/user/**").permitAll()
                 .antMatchers("/tests/**").hasAnyAuthority("TEACHER")
                 .antMatchers("/student/**").hasAnyAuthority("STUDENT")
                 .anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-//        http.authorizeRequests()
-//                //.antMatchers("/authenticate").permitAll()
-//                .antMatchers("/tests/addQuestion/**").hasRole("TEACHER")
-//                .and()
-//                .httpBasic();
-
-//        http.csrf().and().authorizeRequests()
-//                .antMatchers("/tests/addQuestion/**").hasRole("TEACHER");
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);;
     }
 
-	/*
-	 * @Override public void configure(WebSecurity web){
-	 * web.ignoring().antMatchers("/tests/all","/authenticate"); }
-	 */
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception{
-//        http.authorizeRequests()
-//                .antMatchers("/authenticate").permitAll()
-//                .antMatchers("/profile").authenticated()
-//                .antMatchers("/admin").hasRole("ADMIN")
-//                .antMatchers("/management").hasAnyRole("ADMIN","MANAGER")
-//                .and()
-//                .httpBasic();
-//
-//
-//    }
 }

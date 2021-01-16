@@ -27,15 +27,6 @@ public class AuditController {
         this.javers = javers;
     }
 
-    @RequestMapping("/test")
-    public String getTestChanges() {
-        QueryBuilder jqlQuery = QueryBuilder.byClass(Test.class)
-                .withNewObjectChanges();
-
-        Changes changes = javers.findChanges(jqlQuery.build());
-
-        return "<pre>" + changes.prettyPrint() + "</pre>";
-    }
 
     @RequestMapping("/test/{id}")
     public String getTestChanges(@PathVariable Integer id) {
@@ -60,17 +51,6 @@ public class AuditController {
         return jsonConverter.toJson(changes);
     }
 
-    @RequestMapping("/person/{login}/snapshots")
-    public String getTestSnapshots(@PathVariable String login) {
-        QueryBuilder jqlQuery = QueryBuilder.byInstanceId(login, Test.class);
 
-        List<CdoSnapshot> changes = javers.findSnapshots(jqlQuery.build());
-
-        changes.sort((o1, o2) -> -1 * o1.getCommitMetadata().getCommitDate().compareTo(o2.getCommitMetadata().getCommitDate()));
-
-        JsonConverter jsonConverter = javers.getJsonConverter();
-
-        return jsonConverter.toJson(changes);
-    }
 
 }

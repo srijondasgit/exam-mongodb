@@ -26,14 +26,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         roles = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
 
-//        if(user.getRole().equals("TEACHER")){
-//            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_TEACHER"));
-//        }
-//
-//        if(user.getRole().equals("STUDENT")){
-//            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_STUDENT"));
-//        }
-
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), roles);
 
 

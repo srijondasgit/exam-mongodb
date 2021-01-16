@@ -97,20 +97,7 @@ public class TestController {
         return submission;
     }
 
-    @GetMapping("/getSubmission/{id}/{email}")
-    public Submission getSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email){
 
-        Test test = this.testRepository.findByIdEquals(id);
-        List<Submission> submissions = test.getSubmissions();
-
-        for (Submission s: submissions
-             ) {if(s.getStudentEmail().trim().equals(email.trim())){
-                  return s;
-                }
-        }
-
-        return new Submission();
-    }
 
     @PostMapping("/updateSubmission/{id}/{email}")
     public void updateSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Submission submission){

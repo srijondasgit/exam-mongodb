@@ -6,11 +6,7 @@ import org.gitanjali.exam.Entity.Answers;
 import org.gitanjali.exam.Entity.Submission;
 import org.gitanjali.exam.Entity.Test;
 import org.gitanjali.exam.Repository.TestRepository;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -51,6 +47,20 @@ public class StudentController {
 
     }
 
+    @GetMapping("/getSubmission/{id}/{email}")
+    public Submission getSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email){
+
+        Test test = this.testRepository.findByIdEquals(id);
+        List<Submission> submissions = test.getSubmissions();
+
+        for (Submission s: submissions
+                ) {if(s.getStudentEmail().trim().equals(email.trim())){
+            return s;
+        }
+        }
+
+        return new Submission();
+    }
 
 
 }
