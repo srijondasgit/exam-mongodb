@@ -7,7 +7,6 @@ public class RegisterEmail {
     @NotNull
     private String name;
 
-    @NotNull
     private String email;
 
     private int passcode;
