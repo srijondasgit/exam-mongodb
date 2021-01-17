@@ -35,6 +35,13 @@ public class UserController {
         this.testRepository = testRepository;
     }
 
+    @GetMapping("/allTests")
+    public List<Test> getAll(){
+        List<Test> tests = this.testRepository.findAll();
+
+        return tests;
+    }
+
     @PostMapping("/authenticate")
     public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
         try {

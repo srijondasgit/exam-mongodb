@@ -18,21 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/tests")
-public class TestController {
+public class TeacherController {
 
     private TestRepository testRepository;
 
-    public TestController(TestRepository testRepository) {
+    public TeacherController(TestRepository testRepository) {
         this.testRepository = testRepository;
     }
-
-    @GetMapping("/all")
-    public List<Test> getAll(){
-        List<Test> tests = this.testRepository.findAll();
-
-        return tests;
-    }
-
 
     @PutMapping
     public void insert(@RequestBody Test test){

@@ -1,4 +1,9 @@
 spring:
+  mail:
+    Host: smtp.mailtrap.io
+    Port: 2525
+    Username: 1729bf0f00cdfe
+    Password: cb20d16da97fd0
   data:
     mongodb:
       host: localhost
@@ -27,3 +32,4 @@ javers:
 
   server:
       port: 9192
+
