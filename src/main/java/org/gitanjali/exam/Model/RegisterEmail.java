@@ -3,8 +3,7 @@ package org.gitanjali.exam.Model;
 import com.sun.istack.internal.NotNull;
 
 public class RegisterEmail {
-
-    @NotNull
+    
     private String name;
 
     private String email;
