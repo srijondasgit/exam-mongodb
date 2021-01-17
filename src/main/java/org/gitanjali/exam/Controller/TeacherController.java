@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/tests")
+@RequestMapping("/teacher")
 public class TeacherController {
 
     private TestRepository testRepository;

@@ -10,8 +10,18 @@ public class RegisterEmail {
     @NotNull
     private String email;
 
-    @NotNull
-    private String mailBody;
+    private int passcode;
+
+    private String role;
+
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getName() {
         return name;
@@ -29,11 +39,11 @@ public class RegisterEmail {
         this.email = email;
     }
 
-    public String getMailBody() {
-        return mailBody;
+    public int getPasscode() {
+        return passcode;
     }
 
-    public void setMailBody(String mailBody) {
-        this.mailBody = mailBody;
+    public void setPasscode(int passcode) {
+        this.passcode = passcode;
     }
 }
