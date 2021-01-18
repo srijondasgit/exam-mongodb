@@ -1,11 +1,14 @@
 package org.gitanjali.exam.Controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.gitanjali.exam.Entity.Questions;
 import org.gitanjali.exam.Entity.Submission;
 import org.gitanjali.exam.Entity.Test;
 import org.gitanjali.exam.Repository.TestRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +44,24 @@ public class TeacherController {
         Test test = this.testRepository.findByIdEquals(id);
 
         return test;
+    }
+
+    @PostMapping("/addTest")
+    public Test addTest(@RequestBody  Test test){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails){
+            String username = ((UserDetails)principal).getUsername();
+        } else {
+            String username = principal.toString();
+        }
+
+        Test test1 = new Test(test.getTestName(),test.getSchoolName(),
+                test.getClassName(), test.getOwner(), Arrays.asList(),Arrays.asList());
+
+        List<Test> tests = Arrays.asList(test1);
+        this.testRepository.saveAll(tests);
+
+        return test1;
     }
 
     @PostMapping("/addQuestion/{id}")

@@ -15,6 +15,7 @@ public class Test {
     private String testName;
     private String schoolName;
     private String className;
+    private String owner;
 
     private List<Questions> questions;
     private List<Submission> submissions;
@@ -32,10 +33,11 @@ public class Test {
         this.submissions = new ArrayList<>();
     }
 
-    public Test(String testName, String schoolName, String className, List<Questions> questions, List<Submission> submissions) {
+    public Test(String testName, String schoolName, String className, String owner, List<Questions> questions, List<Submission> submissions) {
         this.testName = testName;
         this.schoolName = schoolName;
         this.className = className;
+        this.owner = owner;
         this.questions = questions;
         this.submissions = submissions;
     }
@@ -80,4 +82,11 @@ public class Test {
         return this.submissions.size();
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 }
