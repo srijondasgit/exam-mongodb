@@ -1,5 +1,6 @@
 package org.gitanjali.exam.Controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,20 +50,43 @@ public class TeacherController {
     @PostMapping("/addTest")
     public Test addTest(@RequestBody  Test test){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
         if(principal instanceof UserDetails){
-            String username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails)principal).getUsername();
         } else {
-            String username = principal.toString();
+            username = principal.toString();
         }
 
         Test test1 = new Test(test.getTestName(),test.getSchoolName(),
-                test.getClassName(), test.getOwner(), Arrays.asList(),Arrays.asList());
+                test.getClassName(), username, Arrays.asList(),Arrays.asList());
 
         List<Test> tests = Arrays.asList(test1);
         this.testRepository.saveAll(tests);
 
         return test1;
     }
+
+    @GetMapping("/getOwnersTestsList")
+    public List<String> getTestsList(){
+        String username;
+        List<String> testIds = new ArrayList<>();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails){
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        List<Test> tests = this.testRepository.findAllByOwnerEquals(username);
+
+        for (Test t: tests
+             ) {testIds.add(t.getId());
+
+        }
+
+        return testIds;
+    }
+
 
     @PostMapping("/addQuestion/{id}")
     public void setById(@PathVariable("id") String id, @RequestBody Questions questions){

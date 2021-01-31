@@ -35,7 +35,8 @@ public class Dbseeder implements CommandLineRunner{
                 "test@test.com",
                 Arrays.asList(
                         new Questions(1,"Q1 : this question", 5),
-                        new Questions (2, "Q2 : that question", 10)
+                        new Questions (2, "Q2 : that question", 10),
+                        new Questions (3, "Q3 : that question", 15)
                 ),
                 Arrays.asList(
                         new Submission("Sam","sam@gmail.com", "123",
