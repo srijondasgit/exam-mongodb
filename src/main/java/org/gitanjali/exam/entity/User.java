@@ -1,11 +1,7 @@
-package org.gitanjali.exam.Entity;
+package org.gitanjali.exam.entity;
 
-import org.springframework.data.annotation.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.List;
 
 @Document(collection = "USER_TBL")
 public class User {
@@ -36,9 +32,11 @@ public class User {
         return password;
     }
 
-    public String getEmail() { return email; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getRole(){
+    public String getRole() {
         return role;
     }
 

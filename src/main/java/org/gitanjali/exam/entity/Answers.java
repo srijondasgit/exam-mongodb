@@ -1,4 +1,4 @@
-package org.gitanjali.exam.Entity;
+package org.gitanjali.exam.entity;
 
 
 public class Answers {
@@ -38,7 +38,6 @@ public class Answers {
     public void setPointScored(int pointScored) {
         this.pointScored = pointScored;
     }
-
 
 
 }

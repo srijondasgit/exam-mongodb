@@ -1,4 +1,4 @@
-package org.gitanjali.exam.Model;
+package org.gitanjali.exam.model;
 
 public class RegisterEmail {
 

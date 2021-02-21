@@ -1,11 +1,10 @@
-package org.gitanjali.exam.Controller;
+package org.gitanjali.exam.controller;
 
-import org.gitanjali.exam.Config.EmailConfig;
-import org.gitanjali.exam.Entity.User;
-import org.gitanjali.exam.Model.RegisterEmail;
-import org.gitanjali.exam.Repository.UserRepository;
+import org.gitanjali.exam.config.EmailConfig;
+import org.gitanjali.exam.entity.User;
+import org.gitanjali.exam.model.RegisterEmail;
+import org.gitanjali.exam.repository.UserRepository;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,9 +57,9 @@ public class MailController {
         mailMessage.setFrom("admin@gitanjali.org");
         mailMessage.setTo(registerEmail.getEmail());
         mailMessage.setSubject("Gitanjali.org - Verfication Token");
-        mailMessage.setText(registerEmail.getName()+" - Your verification token is : "+ num);
+        mailMessage.setText(registerEmail.getName() + " - Your verification token is : " + num);
 
-        User user = new User (registerEmail.getName(), String.valueOf(num), registerEmail.getEmail(), registerEmail.getRole());
+        User user = new User(registerEmail.getName(), String.valueOf(num), registerEmail.getEmail(), registerEmail.getRole());
 
         List<User> users = Arrays.asList(user);
         this.userRepository.saveAll(users);

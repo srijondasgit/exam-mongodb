@@ -1,4 +1,4 @@
-package org.gitanjali.exam.Entity;
+package org.gitanjali.exam.entity;
 
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -28,7 +28,7 @@ public class Test {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
-    protected Test(){
+    protected Test() {
         this.questions = new ArrayList<>();
         this.submissions = new ArrayList<>();
     }
@@ -70,15 +70,15 @@ public class Test {
         this.questions.add(questions);
     }
 
-    public int getQLength(){
+    public int getQLength() {
         return this.questions.size();
     }
 
-    public void removeQuestion(int index){
+    public void removeQuestion(int index) {
         this.questions.remove(index);
     }
 
-    public int getSLength(){
+    public int getSLength() {
         return this.submissions.size();
     }
 

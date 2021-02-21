@@ -1,8 +1,8 @@
-package org.gitanjali.exam.Model;
-
-import java.util.Optional;
+package org.gitanjali.exam.model;
 
 import org.springframework.data.domain.AuditorAware;
+
+import java.util.Optional;
 
 public class EntityAuditing implements AuditorAware<String> {
 

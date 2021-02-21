@@ -1,8 +1,8 @@
-package org.gitanjali.exam.Filter;
+package org.gitanjali.exam.filter;
 
 
-import org.gitanjali.exam.Service.CustomUserDetailsService;
-import org.gitanjali.exam.Util.JwtUtil;
+import org.gitanjali.exam.service.CustomUserDetailsService;
+import org.gitanjali.exam.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

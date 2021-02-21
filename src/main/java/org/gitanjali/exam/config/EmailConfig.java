@@ -1,4 +1,4 @@
-package org.gitanjali.exam.Config;
+package org.gitanjali.exam.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

@@ -1,9 +1,7 @@
-package org.gitanjali.exam.Entity;
+package org.gitanjali.exam.entity;
 
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Submission {
 
@@ -22,7 +20,7 @@ public class Submission {
     }
 
     public Submission() {
-       this.answers = new ArrayList<>();
+        this.answers = new ArrayList<>();
     }
 
     public String getStudentName() {

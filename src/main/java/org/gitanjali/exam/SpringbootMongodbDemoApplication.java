@@ -1,11 +1,10 @@
 package org.gitanjali.exam;
 
-import org.gitanjali.exam.Model.EntityAuditing;
+import org.gitanjali.exam.model.EntityAuditing;
 import org.javers.spring.annotation.JaversSpringDataAuditable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
@@ -16,7 +15,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 public class SpringbootMongodbDemoApplication {
 
     @Bean
-    public AuditorAware<String> auditorAware(){
+    public AuditorAware<String> auditorAware() {
         return new EntityAuditing();
     }
 

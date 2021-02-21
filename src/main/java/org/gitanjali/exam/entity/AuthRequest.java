@@ -1,4 +1,4 @@
-package org.gitanjali.exam.Entity;
+package org.gitanjali.exam.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
