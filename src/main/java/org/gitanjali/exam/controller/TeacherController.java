@@ -20,8 +20,12 @@ import java.util.ListIterator;
 @RequestMapping("/teacher")
 public class TeacherController {
 
-    @Autowired
+    //@Autowired
     private TestRepository testRepository;
+
+    public TeacherController(TestRepository testRepository) {
+        this.testRepository = testRepository;
+    }
 
     @GetMapping("/{id}")
     public Test getById(@PathVariable("id") String id) {

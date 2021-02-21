@@ -14,8 +14,12 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
 
-    @Autowired
+    //@Autowired
     private TestRepository testRepository;
+
+    public StudentController(TestRepository testRepository) {
+        this.testRepository = testRepository;
+    }
 
     @PostMapping("/upsertAnswers/test/{testId}/email/{email}")
     public void addAnswersByEmail(@PathVariable("testId") String id, @PathVariable("email") String email, @RequestBody Answers answer) {
