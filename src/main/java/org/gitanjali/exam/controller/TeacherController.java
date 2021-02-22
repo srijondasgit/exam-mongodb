@@ -125,7 +125,6 @@ public class TeacherController {
     }
 
 
-    //scoring for the answer submissions
     @PostMapping("/updateScore/test/{testId}/email/{emailId}/answerIndex/{answerIndex}")
     public void updateScore(@PathVariable("testId") String id,
                             @PathVariable("emailId") String emailId,

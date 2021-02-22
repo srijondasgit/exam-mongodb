@@ -63,7 +63,6 @@ public class StudentController {
         return new Submission();
     }
 
-    // review
     @PostMapping("/updateSubmissionProfile/{id}/{email}")
     public String updateSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Submission submission) {
 
