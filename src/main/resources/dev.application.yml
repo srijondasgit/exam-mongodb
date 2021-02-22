@@ -6,7 +6,7 @@ spring:
     Password: cb20d16da97fd0
   data:
     mongodb:
-      host: mymongodb
+      host: localhost
       port: 27017
       database: TestSubmDB
 
