@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.xml.bind.ValidationException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 @RestController
@@ -47,6 +48,12 @@ public class MailController {
         mailSender.setPort(this.emailConfig.getPort());
         mailSender.setUsername(this.emailConfig.getUsername());
         mailSender.setPassword(this.emailConfig.getPassword());
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
 
         //Generate random number
         Random rand = new Random();
