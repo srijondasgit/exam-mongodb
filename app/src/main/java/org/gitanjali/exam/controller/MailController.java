@@ -32,7 +32,7 @@ public class MailController {
 
 
     @PostMapping
-    public void registerEmail(@RequestBody RegisterEmail registerEmail,
+    public String registerEmail(@RequestBody RegisterEmail registerEmail,
                               BindingResult bindingResult)
             throws ValidationException {
 
@@ -66,6 +66,8 @@ public class MailController {
 
         // Send mail
         mailSender.send(mailMessage);
+
+        return "Successfully registered : " + registerEmail.getName();
 
     }
 }
