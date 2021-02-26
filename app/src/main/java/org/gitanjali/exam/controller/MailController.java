@@ -66,8 +66,13 @@ public class MailController {
         mailMessage.setSubject("Gitanjali.org - Verfication Token");
         mailMessage.setText(registerEmail.getName() + " - Your verification token is : " + num);
 
-        User user = new User(registerEmail.getName(), String.valueOf(num), registerEmail.getEmail(), registerEmail.getRole());
 
+        if(this.userRepository.findByEmail(registerEmail.getEmail())!=null){
+            this.userRepository.delete(this.userRepository.findByEmail(registerEmail.getEmail()));
+
+        }
+
+        User user = new User(registerEmail.getName(), String.valueOf(num), registerEmail.getEmail(), registerEmail.getRole());
         List<User> users = Arrays.asList(user);
         this.userRepository.saveAll(users);
 

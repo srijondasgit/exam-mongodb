@@ -20,10 +20,6 @@ public class Dbseeder implements CommandLineRunner {
         this.userRepository = userRepository;
     }
 
-    //public Dbseeder(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
-
 
     @Override
     public void run(String... args) throws Exception {
@@ -51,17 +47,24 @@ public class Dbseeder implements CommandLineRunner {
         );
 
 
-        this.userRepository.deleteAll();
-        User user = new User("user1", "pwd", "test@test.com", "TEACHER");
-        User user1 = new User("user2", "pwd", "test1@test.com", "STUDENT");
+        //this.userRepository.deleteAll();
 
-        List<User> users = Arrays.asList(user, user1);
-        this.userRepository.saveAll(users);
+        if(this.userRepository.findByEmail("test@test.com")==null){
+            User user = new User("user1", "pwd", "test@test.com", "TEACHER");
+            User user1 = new User("user2", "pwd", "test1@test.com", "STUDENT");
 
-        this.testRepository.deleteAll();
+            List<User> users = Arrays.asList(user, user1);
+            this.userRepository.saveAll(users);
+        }
 
-        List<Test> tests = Arrays.asList(test1);
-        this.testRepository.saveAll(tests);
+
+        //this.testRepository.deleteAll();
+
+        if(this.testRepository.findAllByOwnerEquals("test@test.com")==null){
+            List<Test> tests = Arrays.asList(test1);
+            this.testRepository.saveAll(tests);
+        }
+
 
     }
 }
