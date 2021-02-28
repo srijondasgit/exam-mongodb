@@ -28,6 +28,10 @@ public class Test {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
+    public Test(List<Submission>submissions){
+        this.submissions = submissions;
+    }
+
     protected Test() {
         this.questions = new ArrayList<>();
         this.submissions = new ArrayList<>();

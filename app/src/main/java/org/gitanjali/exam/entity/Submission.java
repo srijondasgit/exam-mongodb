@@ -19,6 +19,10 @@ public class Submission {
 
     }
 
+    public Submission(String studentEmail) {
+        this.studentEmail = studentEmail;
+    }
+
     public Submission() {
         this.answers = new ArrayList<>();
     }
