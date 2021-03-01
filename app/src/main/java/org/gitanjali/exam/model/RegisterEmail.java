@@ -10,6 +10,14 @@ public class RegisterEmail {
 
     private String role;
 
+    public RegisterEmail() {
+    }
+
+    public RegisterEmail(String name, String email, String role) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
+    }
 
     public String getRole() {
         return role;
