@@ -81,9 +81,23 @@ public class TeacherController {
     }
 
     @PostMapping("/addQuestion/{testId}")
-    public void setById(@PathVariable("testId") String id, @RequestBody Questions questions) {
+    public String setById(@PathVariable("testId") String id, @RequestBody Questions questions) {
+
+        String username;
+        List<String> testIds = new ArrayList<>();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
 
         Test test = this.testRepository.findByIdEquals(id);
+
+        if(!username.equals(test.getOwner()))
+            return "Teacher does not own this document";
+
         List<Questions> questionsList = test.getQuestions();
         boolean found = false;
 
@@ -99,6 +113,8 @@ public class TeacherController {
             questionsList.add(questions);
 
         this.testRepository.save(test);
+
+        return "Document successfully updated";
     }
 
     @DeleteMapping("/removeQuestion/{testId}")
