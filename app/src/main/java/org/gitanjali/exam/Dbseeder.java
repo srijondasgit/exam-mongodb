@@ -63,7 +63,7 @@ public class Dbseeder implements CommandLineRunner {
         if(this.testRepository.findAllByOwnerEquals("test@test.com")==null){
             List<Test> tests = Arrays.asList(test1);
             this.testRepository.saveAll(tests);
-        }
+            }
 
 
     }
