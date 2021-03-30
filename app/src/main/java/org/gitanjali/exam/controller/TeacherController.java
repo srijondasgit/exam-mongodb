@@ -27,8 +27,8 @@ public class TeacherController {
         this.testRepository = testRepository;
     }
 
-    @GetMapping("/{id}")
-    public Test getById(@PathVariable("id") String id) {
+    @GetMapping("/{testId}")
+    public Test getById(@PathVariable("testId") String id) {
         Test test = this.testRepository.findByIdEquals(id);
 
         return test;
@@ -53,10 +53,10 @@ public class TeacherController {
         return test1;
     }
 
-    @PostMapping("/addTestAllFields")
-    public void addTestAllFields(@RequestBody Test test) {
-        this.testRepository.save(test);
-    }
+   // @PostMapping("/addTestAllFields")
+   // public void addTestAllFields(@RequestBody Test test) {
+   //     this.testRepository.save(test);
+   // }
 
     @GetMapping("/getOwnersTestsList")
     public List<String> getTestsList() {

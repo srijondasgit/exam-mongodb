@@ -10,6 +10,8 @@ import org.javers.core.Javers;
 import org.javers.repository.jql.QueryBuilder;
 import org.javers.shadow.Shadow;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -42,15 +44,18 @@ public class UserController {
     }
 
     @PostMapping("/authenticate")
-    public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+    public ResponseEntity<String> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
+
             );
+            return new ResponseEntity<>(jwtUtil.generateToken(authRequest.getUserName()), HttpStatus.OK) ;
+
         } catch (Exception ex) {
-            throw new Exception("invalid username/password");
+            //throw new Exception("invalid username/password");
+            return new ResponseEntity<>("Invalid username/password", HttpStatus.UNAUTHORIZED);
         }
-        return jwtUtil.generateToken(authRequest.getUserName());
     }
 
     @GetMapping("/audit/test")

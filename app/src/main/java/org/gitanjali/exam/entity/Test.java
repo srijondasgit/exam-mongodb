@@ -93,4 +93,6 @@ public class Test {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
+    public void addSubmission( Submission submission) {this.submissions.add(submission);}
 }
