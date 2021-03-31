@@ -1,12 +1,18 @@
 package org.gitanjali.exam.controller;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.gitanjali.exam.entity.Answers;
 import org.gitanjali.exam.entity.Submission;
 import org.gitanjali.exam.entity.Test;
 import org.gitanjali.exam.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,13 +27,22 @@ public class StudentController {
         this.testRepository = testRepository;
     }
 
-    @PostMapping("/upsertAnswers/test/{testId}/email/{email}")
-    public void addAnswersByEmail(@PathVariable("testId") String id, @PathVariable("email") String email, @RequestBody Answers answer) {
+    @PostMapping("/upsertAnswers/test/{testId}")
+    public ResponseEntity<String> addAnswersByEmail(@PathVariable("testId") String id, @RequestBody Answers answer) {
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();
 
         for (Submission s : submissions) {
-            if (s.getStudentEmail().trim().equals(email.trim())) {
+            if (s.getStudentEmail().trim().equals(username.trim())) {
                 List<Answers> answers = s.getAnswers();
                 boolean found = false;
                 for (Answers a : answers) {
@@ -45,17 +60,26 @@ public class StudentController {
 
         this.testRepository.save(test);
 
+        return new ResponseEntity<>("Success", HttpStatus.OK) ;
     }
 
-    @GetMapping("/getSubmission/test/{testId}/email/{email}")
-    public Submission getSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email) {
+    @GetMapping("/getSubmission/test/{testId}")
+    public Submission getSubmissionByEmail(@PathVariable("testId") String id) {
+
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
 
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();
 
         for (Submission s : submissions
                 ) {
-            if (s.getStudentEmail().trim().equals(email.trim())) {
+            if (s.getStudentEmail().trim().equals(username.trim())) {
                 return s;
             }
         }
@@ -63,8 +87,47 @@ public class StudentController {
         return new Submission();
     }
 
-    @PostMapping("/updateSubmissionProfile/{id}/{email}")
-    public String updateSubmissionByEmail(@PathVariable("id") String id, @PathVariable("email") String email, @RequestBody Submission submission) {
+
+    @PostMapping("/insertUpdateSubmissionHeader/{testId}")
+    public String insertSubmissionHeader(@PathVariable("testId") String id, @RequestBody Submission submission) {
+
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        Test test = this.testRepository.findByIdEquals(id);
+        List<Submission> submissions = test.getSubmissions();
+        boolean found = false;
+
+        if (CollectionUtils.isEmpty(submissions)){
+            Submission s1 = new Submission( submission.getStudentName(), username , submission.getRollNo(),new ArrayList<>() );
+            test.setSubmissions(new ArrayList<>());
+            test.getSubmissions().add(s1);
+            this.testRepository.save(test);
+
+        } else {
+            System.out.println("username : "+username);
+            for (Submission s : submissions) {
+                if (username.trim().equals(s.getStudentEmail().trim())) {
+                    s.setStudentName(submission.getStudentName());
+                    s.setRollNo(submission.getRollNo());
+                    this.testRepository.save(test);
+                }
+            }
+
+        }
+
+        return "updated successfully";
+
+    }
+
+
+    @PostMapping("/updateSubmissionProfile/{testId}/{email}")
+    public String updateSubmissionByEmail(@PathVariable("testId") String id, @PathVariable("email") String email, @RequestBody Submission submission) {
 
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();

@@ -50,40 +50,32 @@ public class Test {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTestName() {
         return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
     }
 
     public String getSchoolName() {
         return schoolName;
     }
 
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
+
     public String getClassName() {
         return className;
     }
 
-    public List<Questions> getQuestions() {
-        return questions;
-    }
-
-    public List<Submission> getSubmissions() {
-        return submissions;
-    }
-
-    public void addQuestions(Questions questions) {
-        this.questions.add(questions);
-    }
-
-    public int getQLength() {
-        return this.questions.size();
-    }
-
-    public void removeQuestion(int index) {
-        this.questions.remove(index);
-    }
-
-    public int getSLength() {
-        return this.submissions.size();
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public String getOwner() {
@@ -94,5 +86,51 @@ public class Test {
         this.owner = owner;
     }
 
-    public void addSubmission( Submission submission) {this.submissions.add(submission);}
+    public List<Questions> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Questions> questions) {
+        this.questions = questions;
+    }
+
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submission> submissions) {
+        this.submissions = submissions;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public LocalDateTime getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
 }

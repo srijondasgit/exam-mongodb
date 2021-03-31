@@ -31,7 +31,7 @@ public class StudentControllerTest {
     public void addAnswersByEmailTest() throws ValidationException {
         when(testRepository.findByIdEquals(anyString()))
                 .thenReturn(new org.gitanjali.exam.entity.Test(new ArrayList<>()));
-        studentController.addAnswersByEmail("testId", "testEmail", new Answers());
+        studentController.addAnswersByEmail("testId",new Answers());
         verify(testRepository, times(1)).save(any(org.gitanjali.exam.entity.Test.class));
     }
 
@@ -41,7 +41,7 @@ public class StudentControllerTest {
         submissionList.add(new Submission("testEmail"));
         org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
         when(testRepository.findByIdEquals(anyString())).thenReturn(input);
-        Submission submission = studentController.getSubmissionByEmail("testId", "dummyEmail");
+        Submission submission = studentController.getSubmissionByEmail("testId");
         assertNotEquals(submission.getStudentEmail(), input.getSubmissions().get(0).getStudentEmail());
     }
 
@@ -51,7 +51,7 @@ public class StudentControllerTest {
         submissionList.add(new Submission("testEmail"));
         org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
         when(testRepository.findByIdEquals(anyString())).thenReturn(input);
-        Submission submission = studentController.getSubmissionByEmail("testId", "testEmail");
+        Submission submission = studentController.getSubmissionByEmail("testId");
         assertEquals(submission.getStudentEmail(), input.getSubmissions().get(0).getStudentEmail());
     }
 
