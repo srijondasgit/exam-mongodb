@@ -58,6 +58,7 @@ public class StudentControllerTest {
 
     @Test
     public void getSubmissionsByEmailTest_SubmissionNotFound() {
+        when(securityContext.getAuthentication()).thenReturn(token);
         List<Submission> submissionList = new ArrayList<>();
         submissionList.add(new Submission("testEmail"));
         org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
@@ -69,9 +70,8 @@ public class StudentControllerTest {
     @Test
     public void getSubmissionsByEmailTest_SubmissionFound() {
         when(securityContext.getAuthentication()).thenReturn(token);
-
         List<Submission> submissionList = new ArrayList<>();
-        submissionList.add(new Submission("testEmail"));
+        submissionList.add(new Submission("Test123"));
         org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
         when(testRepository.findByIdEquals(anyString())).thenReturn(input);
         Submission submission = studentController.getSubmissionByEmail("testId");
