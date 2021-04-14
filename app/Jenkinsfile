@@ -1,24 +1,30 @@
-pipeline {
-    agent any
-    tools {
-        maven 'Maven 3.3.9'
-        jdk 'jdk8'
-    }
-    stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                '''
-            }
-        }
+node() {
+stage('Code Checkout') {
+   sh " rm -rf *"
+   sh 'git clone https://github.com/srijondasgit/exam-mongodb.git'
+    
+}
+dir('exam-mongodb/app') {
+stage('Compile') {
+    sh " mvn clean compile"
+}
 
-        stage ('Build') {
-            steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install'
-            }
+stage('Package') {
+    sh "mvn -Dmaven.test.failure.ignore=true install"
+}
 
-        }
-    }
+stage('Docker Build') {
+    // Replace with dockerhub userid and token
+    sh "docker login -u <<dockerhub userid>> -p << Dockerhub token>>"
+}
+stage('Docker Login') {
+    sh "docker build -t exam-mongodb ."
+}
+stage('Tag Image') {
+    sh "docker tag exam-mongodb:latest srijondas/exam-mongodb:latest"
+}
+stage('Pushing Image To DockerHub') {
+ sh " docker push srijondas/exam-mongodb:latest"
+}
+}
 }
