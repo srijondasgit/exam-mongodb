@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: exams-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 256m
+spec:
+  tls:
+  - hosts:
+    - exams.hosts.pk
+    secretName: tls-secret
+  rules:
+  - host: exams.hosts.pk
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: exams-svc
+            port:
+              number: 80
