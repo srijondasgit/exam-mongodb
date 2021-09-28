@@ -3,6 +3,7 @@ package org.gitanjali.exam.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.gitanjali.exam.entity.AuthRequest;
+import org.gitanjali.exam.entity.Submission;
 import org.gitanjali.exam.entity.Test;
 import org.gitanjali.exam.repository.TestRepository;
 import org.gitanjali.exam.util.JwtUtil;
@@ -16,6 +17,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -39,8 +43,40 @@ public class UserController {
     @GetMapping("/allTests")
     public List<Test> getAll() {
         List<Test> tests = this.testRepository.findAll();
+        List<Test> testsClean = new LinkedList<Test>();
+        Submission s = new Submission("Data is hidden");
+        //test.setSubmissions(Arrays.asList(s));
+        for (Test t : tests
+                ) {
+            t.setSubmissions(Arrays.asList(s));
+            testsClean.add(t);
 
-        return tests;
+        }
+
+        return testsClean;
+    }
+
+    @GetMapping("/testId/{testId}/getTest")
+    public Test getById(@PathVariable("testId") String id) {
+        Test test = this.testRepository.findByIdEquals(id);
+        Submission s = new Submission("Data is hidden");
+        test.setSubmissions(Arrays.asList(s));
+        return test;
+    }
+
+    @GetMapping("/allTestsIds")
+    public List<String> getAllTestId() {
+        List<String> testIds = new ArrayList<>();
+        List<Test> tests = this.testRepository.findAll();
+
+        for (Test t : tests
+                ) {
+            testIds.add(t.getId());
+
+        }
+
+        return testIds;
+
     }
 
     @PostMapping("/authenticate")

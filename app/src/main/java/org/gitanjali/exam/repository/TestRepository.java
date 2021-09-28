@@ -11,5 +11,6 @@ public interface TestRepository extends MongoRepository<Test, String> {
 
     Test findByIdEquals(String id);
 
+
     List<Test> findAllByOwnerEquals(String owner);
 }

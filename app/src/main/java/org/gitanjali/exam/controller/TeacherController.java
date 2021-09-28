@@ -27,12 +27,6 @@ public class TeacherController {
         this.testRepository = testRepository;
     }
 
-    @GetMapping("/{testId}")
-    public Test getById(@PathVariable("testId") String id) {
-        Test test = this.testRepository.findByIdEquals(id);
-
-        return test;
-    }
 
     @PostMapping("/addTestHeader")
     public Test addTestHeader(@RequestBody Test test) {
