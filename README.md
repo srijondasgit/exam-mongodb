@@ -16,4 +16,4 @@ Docker image -
 https://hub.docker.com/r/srijondas/springboot-mongodb
 
 If Mongodb container is already running and application is updated - 
-docker run -d --network=<Mongodb containerid> --name production-exam-gitanjali1  -p 8080:8080 --link=<Mongodb Container id> <Docker image for production>
+docker run -d --network=[Mongodb containerid] --name production-exam-gitanjali1  -p 8080:8080 --link=[Mongodb Container id] [Docker image for production]
