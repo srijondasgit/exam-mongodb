@@ -108,7 +108,7 @@ public class TeacherController {
 
         this.testRepository.save(test);
 
-        return "Document successfully updated";
+        return "Document successfully added";
     }
 
     @DeleteMapping("/removeQuestion/{testId}")
