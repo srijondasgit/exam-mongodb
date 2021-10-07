@@ -1,10 +1,14 @@
 package org.gitanjali.exam.entity;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Submission {
 
+    @Id
+    private String id;
     private String studentName;
     private String studentEmail;
     //@Indexed(unique = true)

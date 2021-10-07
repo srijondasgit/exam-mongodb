@@ -4,6 +4,7 @@ import org.gitanjali.exam.entity.Answers;
 import org.gitanjali.exam.entity.Questions;
 import org.gitanjali.exam.entity.Submission;
 import org.gitanjali.exam.entity.Test;
+import org.gitanjali.exam.repository.QuestionsRepository;
 import org.gitanjali.exam.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,9 +23,11 @@ public class TeacherController {
 
     //@Autowired
     private TestRepository testRepository;
+    private QuestionsRepository questionsRepository;
 
-    public TeacherController(TestRepository testRepository) {
+    public TeacherController(TestRepository testRepository, QuestionsRepository questionsRepository) {
         this.testRepository = testRepository;
+        this.questionsRepository = questionsRepository;
     }
 
 
@@ -74,8 +77,8 @@ public class TeacherController {
         return testIds;
     }
 
-    @PostMapping("/addQuestion/{testId}")
-    public String setById(@PathVariable("testId") String id, @RequestBody Questions questions) {
+    @PostMapping("/test/{testId}/addQuestion")
+    public String setById(@PathVariable("testId") String testId, @RequestBody Questions questions) {
 
         String username;
         List<String> testIds = new ArrayList<>();
@@ -87,7 +90,7 @@ public class TeacherController {
         }
 
 
-        Test test = this.testRepository.findByIdEquals(id);
+        Test test = this.testRepository.findByIdEquals(testId);
 
         if(!username.equals(test.getOwner()))
             return "Teacher does not own this document";
@@ -103,15 +106,21 @@ public class TeacherController {
             }
         }
 
-        if (found == false)
+        if (found == false) {
+
+            this.questionsRepository.save(questions);
+            questions.setId(questions.getId());
             questionsList.add(questions);
+            this.testRepository.save(test);
+            return "Document successfully added";
+        } else {
+            return "Document was already present";
+        }
 
-        this.testRepository.save(test);
 
-        return "Document successfully added";
     }
 
-    @DeleteMapping("/removeQuestion/{testId}")
+    @DeleteMapping("/testId/{testId}/removeQuestion")
     public void removeById(@PathVariable("testId") String id, @RequestBody int index) {
         Test test = this.testRepository.findByIdEquals(id);
         List<Questions> questionsList = test.getQuestions();
@@ -127,7 +136,7 @@ public class TeacherController {
         this.testRepository.save(test);
     }
 
-    @GetMapping("/getSubmissions/test/{testId}")
+    @GetMapping("/test/{testId}/getSubmissions")
     public List<Submission> getSubmissionByIndex(@PathVariable("testId") String id) {
         Test test = this.testRepository.findByIdEquals(id);
         return test.getSubmissions();
@@ -135,7 +144,7 @@ public class TeacherController {
     }
 
 
-    @PostMapping("/updateScore/test/{testId}/email/{emailId}/answerIndex/{answerIndex}")
+    @PostMapping("/testId/{testId}/emailId/{emailId}/answerIndex/{answerIndex}/updateScore")
     public void updateScore(@PathVariable("testId") String id,
                             @PathVariable("emailId") String emailId,
                             @PathVariable("answerIndex") int answerIndex,

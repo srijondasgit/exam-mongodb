@@ -1,6 +1,7 @@
 package org.gitanjali.exam;
 
 import org.gitanjali.exam.entity.*;
+import org.gitanjali.exam.repository.QuestionsRepository;
 import org.gitanjali.exam.repository.TestRepository;
 import org.gitanjali.exam.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -14,10 +15,12 @@ public class Dbseeder implements CommandLineRunner {
 
     private TestRepository testRepository;
     private UserRepository userRepository;
+    private QuestionsRepository questionsRepository;
 
-    public Dbseeder(TestRepository testRepository, UserRepository userRepository) {
+    public Dbseeder(TestRepository testRepository, UserRepository userRepository, QuestionsRepository questionsRepository) {
         this.testRepository = testRepository;
         this.userRepository = userRepository;
+        this.questionsRepository = questionsRepository;
     }
 
 
