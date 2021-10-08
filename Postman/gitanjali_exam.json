@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "5f3e4367-78ed-4f48-8f41-8ee98fdff70b",
+		"name": "gitanjali",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "allTests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "drawstories.com:8080/user/allTests",
+					"host": [
+						"drawstories",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"allTests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/user/testId/615fde8bd17a06230cc49700/getTest",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"testId",
+						"615fde8bd17a06230cc49700",
+						"getTest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Srijon Student\",\n    \"email\":\"srijondas@yahoo.com\",\n    \"role\":\"STUDENT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/mail/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"mail",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"srijondas@gmail.com\",\n    \"password\": \"1122\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMiIsImV4cCI6MTYxMDgxNTMzNCwiaWF0IjoxNjEwNzc5MzM0fQ.V9cNclexa3JXvEHJge4-W6xymBMbeum798OIsw11Jcc",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"srijondas@gmail.com\",\n    \"name\":\"srijon\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "drawstories.com:8080/mail/reset",
+					"host": [
+						"drawstories",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"mail",
+						"reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addTestHeader",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzNzA4MTM2LCJpYXQiOjE2MzM2NzIxMzZ9.DVS1E7le31kSIVuCztqqvAXoZeYbkKAoRaXgLFbS4tw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"testName\": \"Some test\",\n    \"schoolName\": \"This is your school\",\n    \"className\": \"8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teacher/addTestHeader",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teacher",
+						"addTestHeader"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOwnersTestsList",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzNjY0NzcxLCJpYXQiOjE2MzM2Mjg3NzF9.8Z5GdYqpfTgrB8J1CzVgGiXBm_SyD_xTFxYWpJbuEdU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teacher/getOwnersTestsList/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teacher",
+						"getOwnersTestsList",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addQuestion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzNjc5NDc5LCJpYXQiOjE2MzM2NDM0Nzl9.97dPmkZfOsQQawDF9npM0mvgttdX-XMxWSTyO1CF5c8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"index\": \"12\",\n    \"questionText\": \"this is fourth question\",\n    \"score\": \"13\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teacher/testId/615e7f472a86f82f49fcaff5/addQuestion",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teacher",
+						"testId",
+						"615e7f472a86f82f49fcaff5",
+						"addQuestion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "removeQuestion",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzNjY0NzcxLCJpYXQiOjE2MzM2Mjg3NzF9.8Z5GdYqpfTgrB8J1CzVgGiXBm_SyD_xTFxYWpJbuEdU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teacher/testId/615e7f472a86f82f49fcaff5/questionId/615f6bed0b0e315c9548d9c2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teacher",
+						"testId",
+						"615e7f472a86f82f49fcaff5",
+						"questionId",
+						"615f6bed0b0e315c9548d9c2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insertUpdateSubmissionHeader",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAeWFob28uY29tIiwiZXhwIjoxNjMzNjg5ODU0LCJpYXQiOjE2MzM2NTM4NTR9.mOw75w8YB-Bdz6oZYdM43i84mfmTKPw_WROenvuMQ3Y"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"studentName\":\"testname323235\",\n    \"rollNo\":\"123467\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student/testId/615fde8bd17a06230cc49700/insertUpdateSubmissionHeader",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"testId",
+						"615fde8bd17a06230cc49700",
+						"insertUpdateSubmissionHeader"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSubmission for Student",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAeWFob28uY29tIiwiZXhwIjoxNjMzNjg5ODU0LCJpYXQiOjE2MzM2NTM4NTR9.mOw75w8YB-Bdz6oZYdM43i84mfmTKPw_WROenvuMQ3Y",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"index\":\"10\",\n    \"answerText\":\"this is the answer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student/testId/615fde8bd17a06230cc49700/getSubmission",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"testId",
+						"615fde8bd17a06230cc49700",
+						"getSubmission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PENDING upsertAnswers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAeWFob28uY29tIiwiZXhwIjoxNjE4NzM0OTE1LCJpYXQiOjE2MTg2OTg5MTV9.x1yQUrZm64sIlRkPaJCHp0UM3jglRaxz-Jd9-3h1mks"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"index\":\"12\",\n    \"answerText\":\"this is another updated to the answer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "drawstories.com:8080/student/upsertAnswers/test/607b5a627481630b360194d4/",
+					"host": [
+						"drawstories",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"upsertAnswers",
+						"test",
+						"607b5a627481630b360194d4",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSubmissions for Teacher",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzNjY0NzcxLCJpYXQiOjE2MzM2Mjg3NzF9.8Z5GdYqpfTgrB8J1CzVgGiXBm_SyD_xTFxYWpJbuEdU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"index\": \"5\",\n    \"questionText\": \"this is the first question\",\n    \"score\": \"5\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teacher/testId/615e7f472a86f82f49fcaff5/getSubmissions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teacher",
+						"testId",
+						"615e7f472a86f82f49fcaff5",
+						"getSubmissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PENDING updateScore",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MDAxQHRlc3QuY29tIiwiZXhwIjoxNjE3MTE3NjUwLCJpYXQiOjE2MTcwODE2NTB9.GXxpiFYeKpw9kuE3pvvBlenpkTJDqrT7Vb7yTd3peow"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "10",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teacher/testId//emailId//answerIndex//updateScore",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teacher",
+						"testId",
+						"",
+						"emailId",
+						"",
+						"answerIndex",
+						"",
+						"updateScore"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
