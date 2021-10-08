@@ -78,25 +78,25 @@ public class StudentControllerTest {
         assertEquals(submission.getStudentEmail(), input.getSubmissions().get(0).getStudentEmail());
     }
 
-    @Test
-    public void updateSubmissionByEmailTest_EmailNotFound() {
-        List<Submission> submissionList = new ArrayList<>();
-        submissionList.add(new Submission("testEmail"));
-        org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
-        when(testRepository.findByIdEquals(anyString())).thenReturn(input);
-        String response = studentController.updateSubmissionByEmail("testId", new Submission());
-        assertEquals("Student email not found", response);
-        verify(testRepository, times(0)).save(any(org.gitanjali.exam.entity.Test.class));
-    }
+//    @Test
+//    public void updateSubmissionByEmailTest_EmailNotFound() {
+//        List<Submission> submissionList = new ArrayList<>();
+//        submissionList.add(new Submission("testEmail"));
+//        org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
+//        when(testRepository.findByIdEquals(anyString())).thenReturn(input);
+//        String response = studentController.updateSubmissionByEmail("testId", new Submission());
+//        assertEquals("Student email not found", response);
+//        verify(testRepository, times(0)).save(any(org.gitanjali.exam.entity.Test.class));
+//    }
 
-    @Test
-    public void updateSubmissionByEmailTest_EmailFound() {
-        List<Submission> submissionList = new ArrayList<>();
-        submissionList.add(new Submission("testEmail"));
-        org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
-        when(testRepository.findByIdEquals(anyString())).thenReturn(input);
-        String response = studentController.updateSubmissionByEmail("testId", new Submission());
-        assertEquals("Student is updated", response);
-        verify(testRepository, times(1)).save(any(org.gitanjali.exam.entity.Test.class));
-    }
+//    @Test
+//    public void updateSubmissionByEmailTest_EmailFound() {
+//        List<Submission> submissionList = new ArrayList<>();
+//        submissionList.add(new Submission("testEmail"));
+//        org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
+//        when(testRepository.findByIdEquals(anyString())).thenReturn(input);
+//        String response = studentController.updateSubmissionByEmail("testId", new Submission());
+//        assertEquals("Student is updated", response);
+//        verify(testRepository, times(1)).save(any(org.gitanjali.exam.entity.Test.class));
+//    }
 }
