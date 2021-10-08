@@ -5,16 +5,14 @@ import org.gitanjali.exam.entity.Questions;
 import org.gitanjali.exam.entity.Submission;
 import org.gitanjali.exam.entity.Test;
 import org.gitanjali.exam.repository.QuestionsRepository;
+import org.gitanjali.exam.repository.SubmissionRepository;
 import org.gitanjali.exam.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 
 @RestController
@@ -24,10 +22,12 @@ public class TeacherController {
     //@Autowired
     private TestRepository testRepository;
     private QuestionsRepository questionsRepository;
+    private SubmissionRepository submissionRepository;
 
-    public TeacherController(TestRepository testRepository, QuestionsRepository questionsRepository) {
+    public TeacherController(TestRepository testRepository, QuestionsRepository questionsRepository, SubmissionRepository submissionRepository) {
         this.testRepository = testRepository;
         this.questionsRepository = questionsRepository;
+        this.submissionRepository = submissionRepository;
     }
 
 
@@ -77,7 +77,7 @@ public class TeacherController {
         return testIds;
     }
 
-    @PostMapping("/test/{testId}/addQuestion")
+    @PostMapping("/testId/{testId}/addQuestion")
     public String setById(@PathVariable("testId") String testId, @RequestBody Questions questions) {
 
         String username;
@@ -98,49 +98,63 @@ public class TeacherController {
         List<Questions> questionsList = test.getQuestions();
         boolean found = false;
 
-        for (Questions q : questionsList) {
-            if (q.getIndex() == questions.getIndex()) {
-                q.setQuestionText(questions.getQuestionText());
-                q.setScore(questions.getScore());
-                found = true;
-            }
-        }
-
-        if (found == false) {
-
-            this.questionsRepository.save(questions);
-            questions.setId(questions.getId());
-            questionsList.add(questions);
-            this.testRepository.save(test);
-            return "Document successfully added";
-        } else {
-            return "Document was already present";
-        }
-
+        this.questionsRepository.save(questions);
+        questions.setId(questions.getId());
+        questionsList.add(questions);
+        this.testRepository.save(test);
+        return "Document successfully added";
 
     }
 
-    @DeleteMapping("/testId/{testId}/removeQuestion")
-    public void removeById(@PathVariable("testId") String id, @RequestBody int index) {
-        Test test = this.testRepository.findByIdEquals(id);
+    @DeleteMapping("/testId/{testId}/questionId/{questionId}")
+    public String removeById(@PathVariable("testId") String testId, @PathVariable("questionId") String questionId) {
+        Test test = this.testRepository.findByIdEquals(testId);
+        if (test == null){
+            return "Test id not found";
+        }
+
         List<Questions> questionsList = test.getQuestions();
+        List<Questions> questionsListCopy = new ArrayList<Questions>();
+        for( Questions q : questionsList){
+            questionsListCopy.add(q);
+        }
+
+        int counter = 0;
+        boolean found = false;
 
         ListIterator<Questions> listIterator = questionsList.listIterator();
         while (listIterator.hasNext()) {
             Questions q = listIterator.next();
-            if (q.getIndex() == index) {
-                listIterator.remove();
+            if (q.getId().equals(questionId)) {
+                questionsListCopy.remove(counter);
+                found = true;
             }
+            counter++;
         }
 
+        if(found == false){
+            return "Question id not found";
+        }
+
+        test.setQuestions(questionsListCopy);
         this.testRepository.save(test);
+        return "Question deleted successfully";
     }
 
-    @GetMapping("/test/{testId}/getSubmissions")
-    public List<Submission> getSubmissionByIndex(@PathVariable("testId") String id) {
+    @GetMapping("/testId/{testId}/getSubmissions")
+    public String getSubmissionByIndex(@PathVariable("testId") String id) {
         Test test = this.testRepository.findByIdEquals(id);
-        return test.getSubmissions();
+        if(test == null){
+            return "Test id not found";
+        } else {
+            List<Submission> sub = test.getSubmissions();
+            if (sub.isEmpty()){
+                return "Submissions not found";
+            } else {
+                return String.valueOf(sub);
+            }
 
+        }
     }
 
 
@@ -150,6 +164,16 @@ public class TeacherController {
                             @PathVariable("answerIndex") int answerIndex,
                             @RequestBody int score ) {
 
+        String username;
+        List<String> testIds = new ArrayList<>();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        System.out.println("username is : " +username);
 
         Test test = this.testRepository.findByIdEquals(id);
         List<Submission> submissions = test.getSubmissions();

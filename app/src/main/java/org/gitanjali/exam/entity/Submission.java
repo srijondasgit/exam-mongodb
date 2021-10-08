@@ -1,10 +1,12 @@
 package org.gitanjali.exam.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Document(collection = "Submission")
 public class Submission {
 
     @Id
@@ -57,5 +59,17 @@ public class Submission {
 
     public void setRollNo(String rollNo) {
         this.rollNo = rollNo;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setAnswers(List<Answers> answers) {
+        this.answers = answers;
     }
 }
