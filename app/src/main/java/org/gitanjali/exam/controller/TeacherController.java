@@ -116,9 +116,7 @@ public class TeacherController {
     @DeleteMapping("/testId/{testId}/questionId/{questionId}")
     public String removeById(@PathVariable("testId") String testId, @PathVariable("questionId") String questionId) {
         Test test = this.testRepository.findByIdEquals(testId);
-        if (test == null){
-            return "Test id not found";
-        }
+        if (test == null) return "Test id not found";
 
         List<Questions> questionsList = test.getQuestions();
         List<Questions> questionsListCopy = new ArrayList<Questions>();
@@ -171,14 +169,13 @@ public class TeacherController {
     }
 
 
-    @PostMapping("/testId/{testId}/emailId/{emailId}/answerIndex/{answerIndex}/updateScore")
-    public void updateScore(@PathVariable("testId") String id,
-                            @PathVariable("emailId") String emailId,
-                            @PathVariable("answerIndex") int answerIndex,
+    @PostMapping("/testId/{testId}/submissionId/{submissionId}/answerId/{answerId}/updatePointsScored")
+    public String updateScore(@PathVariable("testId") String testId,
+                            @PathVariable("submissionId") String submissionId,
+                            @PathVariable("answerId") String answerId,
                             @RequestBody int score ) {
 
         String username;
-        List<String> testIds = new ArrayList<>();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
@@ -188,17 +185,19 @@ public class TeacherController {
 
         System.out.println("username is : " +username);
 
-        Test test = this.testRepository.findByIdEquals(id);
+        Test test = this.testRepository.findByIdEquals(testId);
+        if (test == null) return "Test id not found";
         List<Submission> submissions = test.getSubmissions();
-        boolean found = false;
+        if(submissions.isEmpty()) return "No submissions found";
 
         for (Submission s : submissions) {
-            if (s.getStudentEmail().trim().equals(emailId)) {
+            if (s.getId().equals(submissionId)) {
                 List<Answers> answers = s.getAnswers();
                 for( Answers a : answers){
-                    if(a.getIndex()==answerIndex){
+                    if(a.getId().equals(answerId)){
                         a.setPointScored(score);
                         this.testRepository.save(test);
+                        return "Updated score successfully";
 
                     }
                 }
@@ -206,7 +205,7 @@ public class TeacherController {
             }
         }
 
-
+        return "Score not updated";
     }
 
 }
