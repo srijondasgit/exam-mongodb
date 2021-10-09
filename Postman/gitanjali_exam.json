@@ -218,16 +218,10 @@
 			"response": []
 		},
 		{
-			"name": "addQuestion",
+			"name": "addQuestion without multiple choice",
 			"request": {
 				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzNjc5NDc5LCJpYXQiOjE2MzM2NDM0Nzl9.97dPmkZfOsQQawDF9npM0mvgttdX-XMxWSTyO1CF5c8",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"index\": \"12\",\n    \"questionText\": \"this is fourth question\",\n    \"score\": \"13\"\n\n}",
@@ -238,7 +232,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/teacher/testId/615e7f472a86f82f49fcaff5/addQuestion",
+					"raw": "localhost:8080/teacher/testId/6161fec87cb23e2fd9d65fc5/addQuestion",
 					"host": [
 						"localhost"
 					],
@@ -246,7 +240,73 @@
 					"path": [
 						"teacher",
 						"testId",
-						"615e7f472a86f82f49fcaff5",
+						"6161fec87cb23e2fd9d65fc5",
+						"addQuestion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addQuestion with 3 multiple choices",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"index\": \"12\",\n    \"questionText\": \"this is fourth question\",\n    \"choice1\" : \"first radio button\",\n    \"choice2\" : \"second radio button\",\n    \"choice3\" : \"third radio button\",\n    \"score\": \"13\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teacher/testId/6161fec87cb23e2fd9d65fc5/addQuestion",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teacher",
+						"testId",
+						"6161fec87cb23e2fd9d65fc5",
+						"addQuestion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addQuestion with 5 multiple choices",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzODQ2NjEwLCJpYXQiOjE2MzM4MTA2MTB9.TjAVbDGG_Dsp9_PkUIikD6lTKxVwUbSfTjnHLS9MW_Y",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"index\": \"12\",\n    \"questionText\": \"this is fourth question\",\n    \"choice1\" : \"first radio button\",\n    \"choice2\" : \"second radio button\",\n    \"choice3\" : \"third radio button\",\n    \"choice4\" : \"fourth radio button\",\n    \"choice5\" : \"fifth radio button\",\n    \"score\": \"13\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teacher/testId/6161fec87cb23e2fd9d65fc5/addQuestion",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teacher",
+						"testId",
+						"6161fec87cb23e2fd9d65fc5",
 						"addQuestion"
 					]
 				}
