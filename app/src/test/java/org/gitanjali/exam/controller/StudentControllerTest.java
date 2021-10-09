@@ -56,27 +56,27 @@ public class StudentControllerTest {
         verify(testRepository, times(1)).save(any(org.gitanjali.exam.entity.Test.class));
     }
 
-    @Test
-    public void getSubmissionsByEmailTest_SubmissionNotFound() {
-        when(securityContext.getAuthentication()).thenReturn(token);
-        List<Submission> submissionList = new ArrayList<>();
-        submissionList.add(new Submission("testEmail"));
-        org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
-        when(testRepository.findByIdEquals(anyString())).thenReturn(input);
-        Submission submission = studentController.getSubmissionByEmail("testId");
-        assertNotEquals(submission.getStudentEmail(), input.getSubmissions().get(0).getStudentEmail());
-    }
+//    @Test
+//    public void getSubmissionsByEmailTest_SubmissionNotFound() {
+//        when(securityContext.getAuthentication()).thenReturn(token);
+//        List<Submission> submissionList = new ArrayList<>();
+//        submissionList.add(new Submission("testEmail"));
+//        org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
+//        when(testRepository.findByIdEquals(anyString())).thenReturn(input);
+//        Submission submission = studentController.getSubmissionByEmail("testId");
+//        assertNotEquals(submission.getStudentEmail(), input.getSubmissions().get(0).getStudentEmail());
+//    }
 
-    @Test
-    public void getSubmissionsByEmailTest_SubmissionFound() {
-        when(securityContext.getAuthentication()).thenReturn(token);
-        List<Submission> submissionList = new ArrayList<>();
-        submissionList.add(new Submission("Test123"));
-        org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
-        when(testRepository.findByIdEquals(anyString())).thenReturn(input);
-        Submission submission = studentController.getSubmissionByEmail("testId");
-        assertEquals(submission.getStudentEmail(), input.getSubmissions().get(0).getStudentEmail());
-    }
+//    @Test
+//    public void getSubmissionsByEmailTest_SubmissionFound() {
+//        when(securityContext.getAuthentication()).thenReturn(token);
+//        List<Submission> submissionList = new ArrayList<>();
+//        submissionList.add(new Submission("Test123"));
+//        org.gitanjali.exam.entity.Test input = new org.gitanjali.exam.entity.Test(submissionList);
+//        when(testRepository.findByIdEquals(anyString())).thenReturn(input);
+//        Submission submission = studentController.getSubmissionByEmail("testId");
+//        assertEquals(submission.getStudentEmail(), input.getSubmissions().get(0).getStudentEmail());
+//    }
 
 //    @Test
 //    public void updateSubmissionByEmailTest_EmailNotFound() {

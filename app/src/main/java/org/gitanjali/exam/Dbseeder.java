@@ -1,6 +1,7 @@
 package org.gitanjali.exam;
 
 import org.gitanjali.exam.entity.*;
+import org.gitanjali.exam.repository.AnswersRepository;
 import org.gitanjali.exam.repository.QuestionsRepository;
 import org.gitanjali.exam.repository.TestRepository;
 import org.gitanjali.exam.repository.UserRepository;
@@ -16,11 +17,13 @@ public class Dbseeder implements CommandLineRunner {
     private TestRepository testRepository;
     private UserRepository userRepository;
     private QuestionsRepository questionsRepository;
+    private AnswersRepository answersRepository;
 
-    public Dbseeder(TestRepository testRepository, UserRepository userRepository, QuestionsRepository questionsRepository) {
+    public Dbseeder(TestRepository testRepository, UserRepository userRepository, QuestionsRepository questionsRepository, AnswersRepository answersRepository) {
         this.testRepository = testRepository;
         this.userRepository = userRepository;
         this.questionsRepository = questionsRepository;
+        this.answersRepository = answersRepository;
     }
 
 

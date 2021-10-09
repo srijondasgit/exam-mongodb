@@ -1,7 +1,11 @@
 package org.gitanjali.exam.entity;
 
 
+import org.springframework.data.annotation.Id;
+
 public class Answers {
+    @Id
+    private String id;
     private int index;
     private String answerText;
     private int pointScored;
@@ -21,7 +25,13 @@ public class Answers {
         this.copyIndexQuestion = copyIndexQuestion;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getIndex() {
         return index;
@@ -70,29 +80,6 @@ public class Answers {
     public void setCopyIndexQuestion(int copyIndexQuestion) {
         this.copyIndexQuestion = copyIndexQuestion;
     }
-//    public int getIndex() {
-//        return index;
-//    }
-//
-//    public String getAnswerText() {
-//        return answerText;
-//    }
-//
-//    public int getPointScored() {
-//        return pointScored;
-//    }
-//
-//    public void setIndex(int index) {
-//        this.index = index;
-//    }
-//
-//    public void setAnswerText(String answerText) {
-//        this.answerText = answerText;
-//    }
-//
-//    public void setPointScored(int pointScored) {
-//        this.pointScored = pointScored;
-//    }
 
 
 }

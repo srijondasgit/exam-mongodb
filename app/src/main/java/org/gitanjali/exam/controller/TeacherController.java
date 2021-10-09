@@ -106,6 +106,13 @@ public class TeacherController {
 
     }
 
+    @GetMapping("/testId/{testId}/getTest")
+    public String getById(@PathVariable("testId") String id) {
+        Test test = this.testRepository.findByIdEquals(id);
+        if(test == null) return "Test id not found";
+        return String.valueOf(test);
+    }
+
     @DeleteMapping("/testId/{testId}/questionId/{questionId}")
     public String removeById(@PathVariable("testId") String testId, @PathVariable("questionId") String questionId) {
         Test test = this.testRepository.findByIdEquals(testId);
@@ -142,16 +149,22 @@ public class TeacherController {
     }
 
     @GetMapping("/testId/{testId}/getSubmissions")
-    public String getSubmissionByIndex(@PathVariable("testId") String id) {
+    public List<Submission> getSubmissionByIndex(@PathVariable("testId") String id) {
         Test test = this.testRepository.findByIdEquals(id);
+        Submission err = new Submission();
+        List errList = new ArrayList();
+        errList.add(err);
+
         if(test == null){
-            return "Test id not found";
+            err.setStudentEmail("Test id not found");
+            return errList;
         } else {
             List<Submission> sub = test.getSubmissions();
             if (sub.isEmpty()){
-                return "Submissions not found";
+                err.setStudentEmail("Submissions not found");
+                return errList;
             } else {
-                return String.valueOf(sub);
+                return sub;
             }
 
         }

@@ -4,6 +4,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.gitanjali.exam.entity.Answers;
 import org.gitanjali.exam.entity.Submission;
 import org.gitanjali.exam.entity.Test;
+import org.gitanjali.exam.repository.AnswersRepository;
 import org.gitanjali.exam.repository.SubmissionRepository;
 import org.gitanjali.exam.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,12 @@ public class StudentController {
     //@Autowired
     private TestRepository testRepository;
     private SubmissionRepository submissionRepository;
+    private AnswersRepository answersRepository;
 
-    public StudentController(TestRepository testRepository, SubmissionRepository submissionRepository) {
+    public StudentController(TestRepository testRepository, SubmissionRepository submissionRepository, AnswersRepository answersRepository) {
         this.testRepository = testRepository;
         this.submissionRepository = submissionRepository;
+        this.answersRepository = answersRepository;
     }
 
     @PostMapping("/testId/{testId}/upsertAnswers")
@@ -42,21 +45,27 @@ public class StudentController {
 
 
         Test test = this.testRepository.findByIdEquals(id);
+        if(test == null) return new ResponseEntity<>("Test id not found", HttpStatus.OK) ;
         List<Submission> submissions = test.getSubmissions();
 
         for (Submission s : submissions) {
             if (s.getStudentEmail().trim().equals(username.trim())) {
                 List<Answers> answers = s.getAnswers();
                 boolean found = false;
+
                 for (Answers a : answers) {
-                    if (a.getIndex() == answer.getIndex()) {
+                    if (a.getId().equals(answer.getId())) {
                         a.setAnswerText(answer.getAnswerText());
                         found = true;
                     }
                 }
 
                 if (!found) {
+
+                    this.answersRepository.save(answer);
                     answers.add(answer);
+                    answer.setId(answer.getId());
+                    this.testRepository.save(test);
                 }
             }
         }
@@ -77,7 +86,11 @@ public class StudentController {
             username = principal.toString();
         }
 
+        Submission sub = new Submission();
+        sub.setStudentEmail("Test id not found");
+
         Test test = this.testRepository.findByIdEquals(id);
+        if(test == null) return sub;
         List<Submission> submissions = test.getSubmissions();
 
         for (Submission s : submissions
@@ -87,7 +100,8 @@ public class StudentController {
             }
         }
 
-        return new Submission();
+        sub.setStudentEmail("Error");
+        return sub;
     }
 
 
