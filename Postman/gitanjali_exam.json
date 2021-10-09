@@ -471,19 +471,19 @@
 			"response": []
 		},
 		{
-			"name": "PENDING updateScore",
+			"name": "updateScore",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
 						"type": "text",
-						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MDAxQHRlc3QuY29tIiwiZXhwIjoxNjE3MTE3NjUwLCJpYXQiOjE2MTcwODE2NTB9.GXxpiFYeKpw9kuE3pvvBlenpkTJDqrT7Vb7yTd3peow"
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzNzY3NzA0LCJpYXQiOjE2MzM3MzE3MDR9.hW5hZ0GTWHJuYn3HCcAYBa6Tgwlt1K1pyipcwL-DKFI"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "10",
+					"raw": "12",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -491,7 +491,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/teacher/testId//emailId//answerIndex//updateScore",
+					"raw": "localhost:8080/teacher/testId/6160c489f5b7313c81117831/submissionId/6160c4a7f5b7313c81117833/answerId/6160c500f5b7313c8111783a/updatePointsScored",
 					"host": [
 						"localhost"
 					],
@@ -499,12 +499,12 @@
 					"path": [
 						"teacher",
 						"testId",
-						"",
-						"emailId",
-						"",
-						"answerIndex",
-						"",
-						"updateScore"
+						"6160c489f5b7313c81117831",
+						"submissionId",
+						"6160c4a7f5b7313c81117833",
+						"answerId",
+						"6160c500f5b7313c8111783a",
+						"updatePointsScored"
 					]
 				}
 			},
