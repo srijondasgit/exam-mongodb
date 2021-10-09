@@ -366,19 +366,19 @@
 			"response": []
 		},
 		{
-			"name": "PENDING upsertAnswers",
+			"name": "upsertAnswers create new answer",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
 						"type": "text",
-						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAeWFob28uY29tIiwiZXhwIjoxNjE4NzM0OTE1LCJpYXQiOjE2MTg2OTg5MTV9.x1yQUrZm64sIlRkPaJCHp0UM3jglRaxz-Jd9-3h1mks"
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAeWFob28uY29tIiwiZXhwIjoxNjMzNzU3OTU2LCJpYXQiOjE2MzM3MjE5NTZ9.K_jrb73CpYaeDxOK_vUmFBDrtLDbduQEDLyWWQcd4Xk"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"index\":\"12\",\n    \"answerText\":\"this is another updated to the answer\"\n}",
+					"raw": "{\n    \"index\":\"15\",\n    \"answerText\":\"this is another updated aaabbbccc to the answer\",\n    \"copyQuestionText\": \"question\",\n    \"copyScoreQuestion\": 5,\n    \"copyIndexQuestion\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -386,18 +386,46 @@
 					}
 				},
 				"url": {
-					"raw": "drawstories.com:8080/student/upsertAnswers/test/607b5a627481630b360194d4/",
+					"raw": "localhost:8080/student/testId/6160c489f5b7313c81117831/upsertAnswers",
 					"host": [
-						"drawstories",
-						"com"
+						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"student",
-						"upsertAnswers",
-						"test",
-						"607b5a627481630b360194d4",
-						""
+						"testId",
+						"6160c489f5b7313c81117831",
+						"upsertAnswers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upsertAnswers update existing answer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"6160c500f5b7313c8111783a\",\n    \"index\":\"15\",\n    \"answerText\":\"this is another updated aaabbbccc to the answer\",\n    \"copyQuestionText\": \"question\",\n    \"copyScoreQuestion\": 5,\n    \"copyIndexQuestion\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/student/testId/6160c489f5b7313c81117831/upsertAnswers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"testId",
+						"6160c489f5b7313c81117831",
+						"upsertAnswers"
 					]
 				}
 			},
