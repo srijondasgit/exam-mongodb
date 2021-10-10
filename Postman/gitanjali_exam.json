@@ -569,6 +569,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "getProfileRole",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAeWFob28uY29tIiwiZXhwIjoxNjMzOTMzMTQwLCJpYXQiOjE2MzM4OTcxNDB9.VAmeVg19zlKNCmZBrGFQ83uV3OebU_hifwdkBytBulw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/profile/getProfileRole",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profile",
+						"getProfileRole"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
