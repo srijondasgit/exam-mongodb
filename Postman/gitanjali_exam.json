@@ -594,6 +594,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "getProfileName",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzOTM0ODg3LCJpYXQiOjE2MzM4OTg4ODd9.tH87JbgsE5gQR4c1oV1I4CcV0OTHD3o2b_E5CPAeqOs",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/profile/getProfileName",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profile",
+						"getProfileName"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

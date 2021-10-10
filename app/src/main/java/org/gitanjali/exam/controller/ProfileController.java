@@ -42,4 +42,21 @@ public class ProfileController {
         return ((UserDetails) principal).getAuthorities();
 
     }
+
+    @GetMapping("/getProfileName")
+    public String getSelfName() {
+        String username;
+        List<String> testIds = new ArrayList<>();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        System.out.println(username);
+
+        return username;
+
+    }
 }
