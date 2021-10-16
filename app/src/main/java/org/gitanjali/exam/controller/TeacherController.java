@@ -169,6 +169,46 @@ public class TeacherController {
     }
 
 
+    @GetMapping("/testId/{testId}/submissionId/{submissionId}/getSubmissionDetails")
+    public Submission getSubmissionDetails(@PathVariable("testId") String testId,
+                              @PathVariable("submissionId") String submissionId) {
+
+        String username;
+        Submission retSubmission = new Submission();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        System.out.println("username is : " +username);
+
+        Test test = this.testRepository.findByIdEquals(testId);
+
+        if (test == null) {
+            retSubmission.setStudentEmail("Test id not found");
+            return retSubmission;
+        }
+        List<Submission> submissions = test.getSubmissions();
+        if(submissions.isEmpty()){
+            retSubmission.setStudentEmail("No submissions found");
+            return retSubmission;
+        }
+
+        for (Submission s : submissions) {
+            if (s.getId().equals(submissionId)) {
+                return s;
+
+            }
+        }
+
+        retSubmission.setStudentEmail("Something went wrong. No matching submission found");
+        return retSubmission;
+    }
+
+
+
     @PostMapping("/testId/{testId}/submissionId/{submissionId}/answerId/{answerId}/updatePointsScored")
     public String updateScore(@PathVariable("testId") String testId,
                             @PathVariable("submissionId") String submissionId,
