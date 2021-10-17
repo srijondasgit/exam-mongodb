@@ -50,8 +50,9 @@ public class Test {
         return id;
     }
 
-    public void setId(String id) {
+    public Test setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getTestName() {

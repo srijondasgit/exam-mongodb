@@ -46,11 +46,9 @@ public class UserController {
         List<Test> testsClean = new LinkedList<Test>();
         Submission s = new Submission("Data is hidden");
         //test.setSubmissions(Arrays.asList(s));
-        for (Test t : tests
-                ) {
+        for (Test t : tests) {
             t.setSubmissions(Arrays.asList(s));
             testsClean.add(t);
-
         }
 
         return testsClean;
@@ -69,14 +67,11 @@ public class UserController {
         List<String> testIds = new ArrayList<>();
         List<Test> tests = this.testRepository.findAll();
 
-        for (Test t : tests
-                ) {
+        for (Test t : tests) {
             testIds.add(t.getId());
-
         }
 
         return testIds;
-
     }
 
     @PostMapping("/authenticate")
