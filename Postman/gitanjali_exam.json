@@ -538,12 +538,12 @@
 					{
 						"key": "Authorization",
 						"type": "text",
-						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjMzNzY3NzA0LCJpYXQiOjE2MzM3MzE3MDR9.hW5hZ0GTWHJuYn3HCcAYBa6Tgwlt1K1pyipcwL-DKFI"
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjM0NTM0OTE4LCJpYXQiOjE2MzQ0OTg5MTh9.PZUhXVkrsKVcwWpnbsGo33MkApjYnXqx42NIXhLt5rw"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "12",
+					"raw": "{\"pointScored\": \"15\"}",
 					"options": {
 						"raw": {
 							"language": "json"
