@@ -213,7 +213,7 @@ public class TeacherController {
     public String updateScore(@PathVariable("testId") String testId,
                             @PathVariable("submissionId") String submissionId,
                             @PathVariable("answerId") String answerId,
-                            @RequestBody int score ) {
+                            @RequestBody Answers answer ) {
 
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -235,7 +235,7 @@ public class TeacherController {
                 List<Answers> answers = s.getAnswers();
                 for( Answers a : answers){
                     if(a.getId().equals(answerId)){
-                        a.setPointScored(score);
+                        a.setPointScored(answer.getPointScored());
                         this.testRepository.save(test);
                         return "Updated score successfully";
 
