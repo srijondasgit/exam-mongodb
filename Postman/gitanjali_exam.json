@@ -649,6 +649,44 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "updateTotalAndEmail",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAZ21haWwuY29tIiwiZXhwIjoxNjM0OTU3OTI5LCJpYXQiOjE2MzQ5MjE5Mjl9.u-DcDkD5NzDuWiavnqzt-HB__VmCFJMbhqAEKQW41KM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teacher/testId/6160c489f5b7313c81117831/submissionId/6160c4a7f5b7313c81117833/updateTotalAndEmail",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teacher",
+						"testId",
+						"6160c489f5b7313c81117831",
+						"submissionId",
+						"6160c4a7f5b7313c81117833",
+						"updateTotalAndEmail"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
