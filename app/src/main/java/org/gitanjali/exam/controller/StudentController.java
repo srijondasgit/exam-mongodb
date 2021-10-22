@@ -123,7 +123,7 @@ public class StudentController {
         boolean found = false;
         String updatedId = "Something went wrong here";
         if (CollectionUtils.isEmpty(submissions)){
-            Submission s1 = new Submission( submission.getStudentName(), username , submission.getRollNo(),new ArrayList<>(), 0, 0 );
+            Submission s1 = new Submission( submission.getStudentName(), username , submission.getRollNo(),new ArrayList<>(), 0);
             test.setSubmissions(new ArrayList<>());
 
             this.submissionRepository.save(s1);

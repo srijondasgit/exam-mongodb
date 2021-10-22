@@ -16,6 +16,7 @@ public class Test {
     private String schoolName;
     private String className;
     private String owner;
+    private int totalScore;
 
     private List<Questions> questions;
     private List<Submission> submissions;
@@ -37,13 +38,14 @@ public class Test {
         this.submissions = new ArrayList<>();
     }
 
-    public Test(String testName, String schoolName, String className, String owner, List<Questions> questions, List<Submission> submissions) {
+    public Test(String testName, String schoolName, String className, String owner, List<Questions> questions, List<Submission> submissions, int totalScore) {
         this.testName = testName;
         this.schoolName = schoolName;
         this.className = className;
         this.owner = owner;
         this.questions = questions;
         this.submissions = submissions;
+        this.totalScore = totalScore;
     }
 
     public String getId() {
@@ -53,6 +55,15 @@ public class Test {
     public Test setId(String id) {
         this.id = id;
         return this;
+    }
+
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
 
     public String getTestName() {

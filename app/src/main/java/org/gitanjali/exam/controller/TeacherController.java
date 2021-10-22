@@ -47,7 +47,7 @@ public class TeacherController {
         }
 
         Test test1 = new Test(test.getTestName(), test.getSchoolName(),
-                test.getClassName(), username, Arrays.asList(), Arrays.asList());
+                test.getClassName(), username, Arrays.asList(), Arrays.asList(), 0);
 
         List<Test> tests = Arrays.asList(test1);
         this.testRepository.saveAll(tests);
@@ -309,6 +309,7 @@ public class TeacherController {
         for(Questions q : test.getQuestions()){
             maxScore = maxScore + q.getScore();
         }
+        test.setTotalScore(maxScore);
 
         for (Submission s : submissions) {
             if (s.getId().equals(submissionId)) {
@@ -326,6 +327,7 @@ public class TeacherController {
         if(found == false) return "Not found submissionId";
 
         this.testRepository.save(test);
+
         mailMessage.setTo(studentEmail);
         mailMessage.setText("Teacher - "+ username + " has completed answer verification. Student score - "+totalScore+" , Total score of questions - "+maxScore);
 
