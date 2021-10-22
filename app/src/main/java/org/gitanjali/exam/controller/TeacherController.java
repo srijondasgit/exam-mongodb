@@ -260,6 +260,18 @@ public class TeacherController {
                                 BindingResult bindingResult)
             throws ValidationException {
 
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        System.out.println("username is : " +username);
+
+
+
         if (bindingResult.hasErrors()) {
             throw new ValidationException("Email error");
         }
@@ -281,9 +293,8 @@ public class TeacherController {
         //Create an email instance
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("admin@gitanjali.org");
-        mailMessage.setTo(registerEmail.getEmail());
+
         mailMessage.setSubject("Gitanjali.org - Answer verfication email");
-        mailMessage.setText(registerEmail.getName() + " - Teacher has completed answer verification.");
 
         Test test = this.testRepository.findByIdEquals(testId);
         if (test == null) return "No testId found";
@@ -291,7 +302,13 @@ public class TeacherController {
         if(submissions.isEmpty()) return "No submissionId found";
 
         int totalScore = 0;
+        int maxScore = 0;
         boolean found = false;
+        String studentEmail = "";
+
+        for(Questions q : test.getQuestions()){
+            maxScore = maxScore + q.getScore();
+        }
 
         for (Submission s : submissions) {
             if (s.getId().equals(submissionId)) {
@@ -302,14 +319,19 @@ public class TeacherController {
 
                 found = true;
                 s.setTotalScoreObtained(totalScore);
+                studentEmail = s.getStudentEmail();
             }
         }
 
         if(found == false) return "Not found submissionId";
 
         this.testRepository.save(test);
+        mailMessage.setTo(studentEmail);
+        mailMessage.setText("Teacher - "+ username + " has completed answer verification. Student score - "+totalScore+" , Total score of questions - "+maxScore);
+
         mailSender.send(mailMessage);
 
+        System.out.println("Email sent to user : " +studentEmail);
         return "Successfully updated total score and emailed the student";
 
     }
