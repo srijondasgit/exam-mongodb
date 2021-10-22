@@ -1,17 +1,20 @@
 package org.gitanjali.exam.controller;
 
-import org.gitanjali.exam.entity.Answers;
-import org.gitanjali.exam.entity.Questions;
-import org.gitanjali.exam.entity.Submission;
-import org.gitanjali.exam.entity.Test;
+import org.gitanjali.exam.config.EmailConfig;
+import org.gitanjali.exam.entity.*;
+import org.gitanjali.exam.model.RegisterEmail;
 import org.gitanjali.exam.repository.QuestionsRepository;
 import org.gitanjali.exam.repository.SubmissionRepository;
 import org.gitanjali.exam.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.bind.ValidationException;
 import java.util.*;
 
 
@@ -23,11 +26,13 @@ public class TeacherController {
     private TestRepository testRepository;
     private QuestionsRepository questionsRepository;
     private SubmissionRepository submissionRepository;
+    private EmailConfig emailConfig;
 
-    public TeacherController(TestRepository testRepository, QuestionsRepository questionsRepository, SubmissionRepository submissionRepository) {
+    public TeacherController(TestRepository testRepository, QuestionsRepository questionsRepository, SubmissionRepository submissionRepository, EmailConfig emailConfig) {
         this.testRepository = testRepository;
         this.questionsRepository = questionsRepository;
         this.submissionRepository = submissionRepository;
+        this.emailConfig = emailConfig;
     }
 
 
@@ -247,5 +252,67 @@ public class TeacherController {
 
         return "Score not updated";
     }
+
+    @PostMapping("/testId/{testId}/submissionId/{submissionId}/updateTotalAndEmail")
+    public String updateTotalAndEmail(@PathVariable("testId") String testId,
+                                @PathVariable("submissionId") String submissionId,
+                                @RequestBody RegisterEmail registerEmail,
+                                BindingResult bindingResult)
+            throws ValidationException {
+
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException("Email error");
+        }
+
+        //Create a mail sender
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost(this.emailConfig.getHost());
+        mailSender.setPort(this.emailConfig.getPort());
+        mailSender.setUsername(this.emailConfig.getUsername());
+        mailSender.setPassword(this.emailConfig.getPassword());
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+
+        //Create an email instance
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom("admin@gitanjali.org");
+        mailMessage.setTo(registerEmail.getEmail());
+        mailMessage.setSubject("Gitanjali.org - Answer verfication email");
+        mailMessage.setText(registerEmail.getName() + " - Teacher has completed answer verification.");
+
+        Test test = this.testRepository.findByIdEquals(testId);
+        if (test == null) return "No testId found";
+        List<Submission> submissions = test.getSubmissions();
+        if(submissions.isEmpty()) return "No submissionId found";
+
+        int totalScore = 0;
+        boolean found = false;
+
+        for (Submission s : submissions) {
+            if (s.getId().equals(submissionId)) {
+                List<Answers> answers = s.getAnswers();
+                for( Answers a : answers){
+                    totalScore = totalScore + a.getPointScored();
+                }
+
+                found = true;
+                s.setTotalScoreObtained(totalScore);
+            }
+        }
+
+        if(found == false) return "Not found submissionId";
+
+        this.testRepository.save(test);
+        mailSender.send(mailMessage);
+
+        return "Successfully updated total score and emailed the student";
+
+    }
+
 
 }

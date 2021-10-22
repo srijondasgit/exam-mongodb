@@ -45,15 +45,13 @@ public class Dbseeder implements CommandLineRunner {
                                 Arrays.asList(
                                         new Answers(1, "A1 : this answer", 5, "this is the question", 1, 1),
                                         new Answers(2, "A2 : that answer", 10, "this is the question", 1, 1)
-                                )
+                                ),0,0
 
                         )
                 )
 
         );
 
-
-        //this.userRepository.deleteAll();
 
         if(this.userRepository.findByEmail("test@test.com")==null){
             User user = new User("user1", "pwd", "test@test.com", "TEACHER");
@@ -63,8 +61,6 @@ public class Dbseeder implements CommandLineRunner {
             this.userRepository.saveAll(users);
         }
 
-
-        //this.testRepository.deleteAll();
 
         if(this.testRepository.findAllByOwnerEquals("test@test.com")==null){
             List<Test> tests = Arrays.asList(test1);

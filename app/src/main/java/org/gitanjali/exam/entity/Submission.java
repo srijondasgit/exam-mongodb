@@ -16,13 +16,33 @@ public class Submission {
     //@Indexed(unique = true)
     private String rollNo;
     private List<Answers> answers;
+    private int totalScore;
+    private int totalScoreObtained;
 
-    public Submission(String studentName, String studentEmail, String rollNo, List<Answers> answers) {
+    public Submission(String studentName, String studentEmail, String rollNo, List<Answers> answers, int totalScore, int totalScoreObtained) {
         this.studentName = studentName;
         this.studentEmail = studentEmail;
         this.rollNo = rollNo;
         this.answers = answers;
+        this.totalScore = totalScore;
+        this.totalScoreObtained = totalScoreObtained;
 
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public int getTotalScoreObtained() {
+        return totalScoreObtained;
+    }
+
+    public void setTotalScoreObtained(int totalScoreObtained) {
+        this.totalScoreObtained = totalScoreObtained;
     }
 
     public Submission(String studentEmail) {
