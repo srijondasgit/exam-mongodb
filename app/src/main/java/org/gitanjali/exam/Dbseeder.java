@@ -45,10 +45,10 @@ public class Dbseeder implements CommandLineRunner {
                                 Arrays.asList(
                                         new Answers(1, "A1 : this answer", 5, "this is the question", 1, 1),
                                         new Answers(2, "A2 : that answer", 10, "this is the question", 1, 1)
-                                ),0,0
+                                ),0
 
                         )
-                )
+                ),0
 
         );
 
