@@ -61,9 +61,9 @@ public class TeacherController {
    // }
 
     @GetMapping("/getOwnersTestsList")
-    public List<String> getTestsList() {
+    public List<Test> getTestsList() {
         String username;
-        List<String> testIds = new ArrayList<>();
+        List<Test> testIds = new ArrayList<>();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
@@ -75,7 +75,7 @@ public class TeacherController {
 
         for (Test t : tests
                 ) {
-            testIds.add(t.getId());
+            testIds.add(t);
 
         }
 
