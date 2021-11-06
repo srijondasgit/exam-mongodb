@@ -100,7 +100,7 @@ public class StudentController {
             }
         }
 
-        sub.setStudentEmail("Error");
+        sub.setStudentEmail("No submission found");
         return sub;
     }
 
