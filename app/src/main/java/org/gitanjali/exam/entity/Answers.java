@@ -12,17 +12,27 @@ public class Answers {
     private String copyQuestionText;
     private int copyScoreQuestion;
     private int copyIndexQuestion;
+    private String copyQuestionId;
 
     public Answers() {
     }
 
-    public Answers(int index, String answerText, int pointScored, String copyQuestionText, int copyScoreQuestion, int copyIndexQuestion) {
+    public String getCopyQuestionId() {
+        return copyQuestionId;
+    }
+
+    public void setCopyQuestionId(String copyQuestionId) {
+        this.copyQuestionId = copyQuestionId;
+    }
+
+    public Answers(int index, String answerText, int pointScored, String copyQuestionText, int copyScoreQuestion, int copyIndexQuestion, String copyQuestionId) {
         this.index = index;
         this.answerText = answerText;
         this.pointScored = pointScored;
         this.copyQuestionText = copyQuestionText;
         this.copyScoreQuestion = copyScoreQuestion;
         this.copyIndexQuestion = copyIndexQuestion;
+        this.copyQuestionId = copyQuestionId;
     }
 
     public String getId() {

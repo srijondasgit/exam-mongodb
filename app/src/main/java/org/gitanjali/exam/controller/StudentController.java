@@ -75,6 +75,54 @@ public class StudentController {
         return new ResponseEntity<>("Success", HttpStatus.OK) ;
     }
 
+    @PostMapping("/testId/{testId}/questionId/{questionId}/upsertAnswersUpdated")
+    public ResponseEntity<String> upsertAnswersUpdated(@PathVariable("testId") String testId, @PathVariable("questionId") String questionId, @RequestBody Answers answer) {
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+
+        Test test = this.testRepository.findByIdEquals(testId);
+        if(test == null) return new ResponseEntity<>("Test id not found", HttpStatus.OK) ;
+        List<Submission> submissions = test.getSubmissions();
+
+        boolean submissionFound = false;
+        for (Submission s : submissions) {
+            if (s.getStudentEmail().trim().equals(username.trim())) {
+                List<Answers> answers = s.getAnswers();
+                submissionFound = true;
+                boolean found = false;
+
+                for (Answers a : answers) {
+                    // code to update
+                    if (questionId.equals(answer.getCopyQuestionId())) {
+                        a.setAnswerText(answer.getAnswerText());
+                        found = true;
+                    }
+                }
+
+                // code to insert
+                if (!found) {
+                    answer.setCopyQuestionId(questionId);
+                    this.answersRepository.save(answer);
+                    answers.add(answer);
+                    answer.setId(answer.getId());
+                    this.testRepository.save(test);
+                }
+            }
+        }
+        if(!submissionFound) return new ResponseEntity<>("No submission header found for user", HttpStatus.OK) ;
+
+        this.testRepository.save(test);
+
+        return new ResponseEntity<>("Success", HttpStatus.OK) ;
+    }
+
+
     @GetMapping("/testId/{testId}/getSubmission")
     public Submission getSubmissionByEmail(@PathVariable("testId") String id) {
 
