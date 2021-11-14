@@ -154,7 +154,7 @@ public class StudentController {
 
 
     @PostMapping("/testId/{testId}/insertUpdateSubmissionHeader")
-    public String insertSubmissionHeader(@PathVariable("testId") String id, @RequestBody Submission submission) {
+    public ResponseEntity<String> insertSubmissionHeader(@PathVariable("testId") String id, @RequestBody Submission submission) {
 
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -165,7 +165,7 @@ public class StudentController {
         }
 
         Test test = this.testRepository.findByIdEquals(id);
-        if(test == null) return "Test id not found";
+        if(test == null) return new ResponseEntity<>("No data found", HttpStatus.NOT_FOUND);
 
         List<Submission> submissions = test.getSubmissions();
         boolean found = false;
@@ -194,7 +194,10 @@ public class StudentController {
 
         }
 
-        return updatedId;
+        //return updatedId;
+        if(updatedId.equals("Something went wrong here")) return new ResponseEntity<>(updatedId, HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(updatedId, HttpStatus.OK);
 
     }
 
