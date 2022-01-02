@@ -55,8 +55,9 @@ public class Answers {
         return answerText;
     }
 
-    public void setAnswerText(String answerText) {
+    public Answers setAnswerText(String answerText) {
         this.answerText = answerText;
+        return null;
     }
 
     public int getPointScored() {

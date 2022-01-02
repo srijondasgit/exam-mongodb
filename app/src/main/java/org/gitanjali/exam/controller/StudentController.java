@@ -201,7 +201,39 @@ public class StudentController {
 
     }
 
+    @GetMapping("/testId/{testId}/questionId/{questionId}/getAnswer")
+    public Answers getAnswer(@PathVariable("testId") String testId, @PathVariable("questionId") String questionId) {
 
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        Submission sub = new Submission();
+        Answers ans = new Answers();
+        //sub.setStudentEmail("Test id not found");
+
+        Test test = this.testRepository.findByIdEquals(testId);
+        if(test == null) return ans;
+        List<Submission> submissions = test.getSubmissions();
+
+        for (Submission s : submissions) {
+            if (s.getStudentEmail().trim().equals(username.trim())){
+                List<Answers> answers = s.getAnswers();
+                for ( Answers a : answers){
+                    if(a.getCopyQuestionId().equals(questionId)){
+                        return a;
+                    }
+                }
+            }
+        }
+
+        ans.setAnswerText("No Answer found");
+        return ans;
+    }
 //    @PostMapping("/testId/{testId}/updateSubmissionProfile")
 //    public String updateSubmissionByEmail(@PathVariable("testId") String id, @RequestBody Submission submission) {
 //        String username;
