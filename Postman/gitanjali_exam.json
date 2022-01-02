@@ -366,7 +366,7 @@
 					{
 						"key": "Authorization",
 						"type": "text",
-						"value": "Bearer <jwttoken>"
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcmlqb25kYXNAeWFob28uY29tIiwiZXhwIjoxNjM2ODg3MDExLCJpYXQiOjE2MzY4NTEwMTF9.ct_2RFP6DbxNxPuLug7vnb13OYYAnKSnaVN0rhf5yj0"
 					}
 				],
 				"body": {
@@ -765,6 +765,35 @@
 						"questionId",
 						"6161fed57cb23e2fd9d65fc7",
 						"upsertAnswersUpdated"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAnswer",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <token>",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/student/testId/6161fec87cb23e2fd9d65fc5/questionId/6161fed57cb23e2fd9d65fc7/getAnswer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student",
+						"testId",
+						"6161fec87cb23e2fd9d65fc5",
+						"questionId",
+						"6161fed57cb23e2fd9d65fc7",
+						"getAnswer"
 					]
 				}
 			},
